@@ -380,7 +380,7 @@ nav{
   display:none;
   position:fixed;
   inset:0;
-  z-index:201;
+  z-index:250;
   background:rgba(13,12,9,0.98);
   flex-direction:column;
   align-items:center;
@@ -1090,7 +1090,7 @@ footer{
 }
 
 /* Mobile nav overlay active state */
-.nav-toggle:checked ~ .site-shell .mobile-nav-overlay{
+.nav-toggle:checked ~ .mobile-nav-overlay{
   display:flex;
 }
 
@@ -1141,6 +1141,14 @@ footer{
 <!-- Mobile nav checkbox -->
 <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 
+<!-- Mobile overlay menu -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay">
+  <a href="index.html" class="active">DISPATCHES</a>
+  <a href="star-of-the-month.html">STAR OF THE MONTH</a>
+  <a href="lexicon.html">THE METAVOXA LEXICON</a>
+  <a href="archive.html">PRESS ARCHIVE</a>
+</div>
+
 <div class="site-shell" id="siteShell">
   <nav>
     <a href="index.html" class="nav-logo">METAVOXA PRESS</a>
@@ -1159,14 +1167,6 @@ footer{
       <span></span>
     </label>
   </nav>
-
-  <!-- Mobile overlay menu -->
-  <div class="mobile-nav-overlay" id="mobileNavOverlay">
-    <a href="index.html">DISPATCHES</a>
-    <a href="star-of-the-month.html">STAR OF THE MONTH</a>
-    <a href="lexicon.html">THE METAVOXA LEXICON</a>
-    <a href="archive.html">PRESS ARCHIVE</a>
-  </div>
 
   <main>
     <section class="hero">
