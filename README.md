@@ -145,12 +145,5 @@ Press is one room. It does not explain the others. `metavoxa.com` is the front d
 
 ---
 
-## Deployment
-
-- Domain: `press.metavoxa.com` → this repo (CNAME record at DNS provider)
-- [Add your actual host/build details here — GitHub Pages, Vercel, Netlify, etc.]
-
----
-
 *Maintained by Martha Wuya Koroma. Part of the MetaVoxa Knowledge Core ecosystem.*
 *Last updated: June 2026*
