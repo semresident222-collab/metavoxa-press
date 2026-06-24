@@ -79,7 +79,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;
 /* HERO */
 main{padding-top:58px;}
 .lex-hero{
-  position:relative;height:460px;overflow:hidden;
+  position:relative;width:100%;height:460px;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
 }
 .lex-hero img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.55);z-index:0;}
@@ -197,13 +197,13 @@ footer{padding:36px 50px;border-top:1px solid rgba(201,164,97,0.13);display:flex
   .detail-panel{display:none;}
 
   .mobile-def-backdrop{
-    display:block;position:fixed;inset:0;z-index:2499;
+    position:fixed;inset:0;z-index:2499;
     background:rgba(7,6,4,0.78);opacity:0;pointer-events:none;
     transition:opacity 0.3s ease;
   }
   .mobile-def-backdrop.open{opacity:1;pointer-events:auto;}
   .mobile-def-popup{
-    display:block;position:fixed;bottom:0;left:0;right:0;z-index:2500;
+    position:fixed;bottom:0;left:0;right:0;z-index:2500;
     background:var(--panel);border-top:1px solid var(--panel-border);
     padding:32px 24px 40px;
     transform:translateY(100%);
@@ -223,7 +223,7 @@ footer{padding:36px 50px;border-top:1px solid rgba(201,164,97,0.13);display:flex
 @media(max-width:700px){
   .terms-panel{grid-template-columns:1fr;}
   .lex-body{padding:30px 22px 60px;}
-  .hero-overlay{grid-template-columns:1fr;}
+  .hero-overlay{display:block;margin:0 auto;}
   .hero-left-text{border-right:none;padding-right:0;border-bottom:1px solid rgba(201,164,97,0.25);padding-bottom:20px;}
   nav{padding:0 20px;}
 }
@@ -628,17 +628,27 @@ function openMobileDef(){
   const popup=document.getElementById('mobileDefPopup');
   const content=document.getElementById('mobileDefContent');
   const panel=document.getElementById('detailPanel');
+  if(!backdrop || !popup || !content || !panel) return;
   content.innerHTML=panel.innerHTML;
-  backdrop.classList.add('open');
-  popup.classList.add('open');
+  backdrop.style.display='block';
+  popup.style.display='block';
+  requestAnimationFrame(()=>{
+    backdrop.classList.add('open');
+    popup.classList.add('open');
+  });
   document.body.style.overflow='hidden';
 }
 
 function closeMobileDef(){
   const backdrop=document.getElementById('mobileDefBackdrop');
   const popup=document.getElementById('mobileDefPopup');
+  if(!backdrop || !popup) return;
   backdrop.classList.remove('open');
   popup.classList.remove('open');
+  setTimeout(()=>{
+    backdrop.style.display='none';
+    popup.style.display='none';
+  },350);
   document.body.style.overflow='';
 }
 
