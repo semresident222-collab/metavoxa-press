@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The MetaVoxa Lexicon | MetaVoxa Press</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0c09;--gold:#C9A461;--gold-deep:#B8941F;--gold-soft:#D4B870;
+  --card:#F5F0E8;--card-border:#DDD5BE;
+  --text:#E8E0CC;--text-sec:#8A7A5A;--ink:#1A1410;--ink-sec:#5A4E3A;
+  --panel:#151410;--panel-border:rgba(201,164,97,0.18);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+.grain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;opacity:0.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 50px;
+  background:rgba(13,12,9,0.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(201,164,97,0.14);}
+.nav-logo{font-family:'Cinzel',serif;font-size:0.78rem;color:var(--gold);letter-spacing:0.22em;text-decoration:none;}
+.nav-links{display:flex;gap:36px;}
+.nav-links a{font-family:'Cinzel',serif;font-size:0.68rem;color:var(--text-sec);letter-spacing:0.12em;text-decoration:none;transition:color 0.3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
+.nav-archive{font-family:'Cinzel',serif;font-size:0.68rem;color:var(--text-sec);letter-spacing:0.12em;text-decoration:none;}
+.nav-archive .dot{color:var(--gold);margin-left:3px;}
+
+/* HERO */
+main{padding-top:58px;}
+.lex-hero{
+  position:relative;height:460px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.lex-hero img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.55);z-index:0;}
+.hero-fallback{position:absolute;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(135deg,#1A1208 0%,#0d0c09 50%,#1A1610 100%);z-index:0;}
+.hero-overlay{position:relative;z-index:10;width:100%;max-width:900px;padding:0 50px;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.hero-left-text{border-right:1px solid rgba(201,164,97,0.25);padding-right:50px;}
+.hero-page-num{font-family:'Cinzel',serif;font-size:0.6rem;color:rgba(201,164,97,0.5);letter-spacing:0.2em;margin-bottom:16px;}
+.hero-book-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-style:italic;color:var(--gold);line-height:1.2;margin-bottom:16px;}
+.hero-book-sub{font-family:'Cinzel',serif;font-size:0.6rem;color:rgba(201,164,97,0.6);letter-spacing:0.14em;line-height:1.8;}
+.hero-right-text{padding-left:10px;}
+.hero-right-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2vw,1.5rem);color:var(--text);line-height:1.45;margin-bottom:16px;}
+.hero-right-desc{font-style:italic;font-size:0.95rem;color:rgba(232,224,204,0.65);line-height:1.6;margin-bottom:28px;}
+.enter-btn{display:inline-block;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.14em;
+  color:var(--ink);background:var(--gold);padding:12px 28px;text-decoration:none;transition:background 0.3s;}
+.enter-btn:hover{background:var(--gold-soft);}
+.veritas{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.2em;color:rgba(201,164,97,0.35);margin-top:20px;}
+
+/* INDEX BODY */
+.lex-body{padding:40px 50px 80px;}
+
+/* CONTROLS */
+.controls{margin-bottom:28px;}
+.cats-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:16px;border-bottom:1px solid rgba(201,164,97,0.12);}
+.ccat{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.1em;
+  padding:5px 12px;border:1px solid rgba(201,164,97,0.25);background:transparent;
+  color:var(--text-sec);cursor:pointer;transition:all 0.25s;}
+.ccat:hover{color:var(--gold);border-color:var(--gold);}
+.ccat.active{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+.alpha-search-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.alpha-row{display:flex;gap:4px;flex-wrap:wrap;}
+.alph{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.08em;
+  width:24px;height:24px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--text-sec);border:1px solid transparent;transition:all 0.2s;}
+.alph:hover{color:var(--gold);}
+.alph.active{color:var(--gold);border-color:rgba(201,164,97,0.4);}
+.search-box{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(201,164,97,0.2);padding:8px 14px;max-width:280px;flex:1;}
+.search-box input{background:transparent;border:none;outline:none;
+  font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--text);width:100%;}
+.search-box input::placeholder{color:var(--text-sec);font-style:italic;}
+.search-icon{color:var(--text-sec);font-size:0.8rem;flex-shrink:0;}
+
+/* TWO PANELS */
+.two-panel{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start;}
+.terms-panel{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.term-card{
+  background:var(--card);border:1px solid var(--card-border);
+  padding:20px;cursor:pointer;transition:all 0.22s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.22);
+}
+.term-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.3);}
+.term-card.selected{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 8px 28px rgba(0,0,0,0.3);}
+.tc-id{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--gold-deep);letter-spacing:0.1em;margin-bottom:6px;display:flex;justify-content:space-between;}
+.tc-cats{font-family:'Cinzel',serif;font-size:0.5rem;color:var(--ink-sec);letter-spacing:0.08em;margin-bottom:10px;}
+.tc-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:var(--ink);margin-bottom:8px;line-height:1.25;}
+.tc-def{font-size:0.88rem;color:var(--ink-sec);line-height:1.55;margin-bottom:14px;}
+.tc-link{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.1em;color:var(--gold-deep);}
+
+/* DETAIL PANEL */
+.detail-panel{
+  background:var(--panel);border:1px solid var(--panel-border);
+  padding:32px 28px;position:sticky;top:78px;max-height:calc(100vh - 100px);
+  overflow-y:auto;
+}
+.detail-panel::-webkit-scrollbar{width:3px;}
+.detail-panel::-webkit-scrollbar-thumb{background:rgba(201,164,97,0.3);border-radius:2px;}
+.dp-header{margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid rgba(201,164,97,0.15);
+  display:flex;justify-content:space-between;align-items:flex-start;}
+.dp-id{font-family:'Cinzel',serif;font-size:0.55rem;color:rgba(201,164,97,0.5);letter-spacing:0.1em;margin-bottom:4px;}
+.dp-tf{font-family:'Cinzel',serif;font-size:0.52rem;color:rgba(201,164,97,0.35);letter-spacing:0.14em;}
+.dp-compass{opacity:0.25;flex-shrink:0;}
+.dp-name{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,2.5vw,2rem);color:var(--text);line-height:1.2;margin-bottom:10px;}
+.dp-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px;}
+.dp-cat{font-family:'Cinzel',serif;font-size:0.52rem;letter-spacing:0.1em;
+  padding:3px 9px;border:1px solid rgba(201,164,97,0.3);color:var(--gold-soft);}
+.dp-veritas{font-family:'Cinzel',serif;font-size:0.48rem;letter-spacing:0.18em;color:rgba(201,164,97,0.25);margin-bottom:22px;}
+.dp-section{margin-bottom:18px;}
+.dp-section-label{font-family:'Cinzel',serif;font-size:0.55rem;letter-spacing:0.14em;color:rgba(201,164,97,0.55);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.dp-section-label::before{content:'';width:12px;height:1px;background:rgba(201,164,97,0.35);display:block;}
+.dp-text{font-size:0.9rem;color:rgba(232,224,204,0.8);line-height:1.7;}
+.dp-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.dp-chip{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.08em;
+  padding:3px 8px;background:rgba(201,164,97,0.08);border:1px solid rgba(201,164,97,0.2);
+  color:rgba(201,164,97,0.7);}
+.dp-related{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.08em;
+  padding:3px 9px;border:1px solid rgba(201,164,97,0.18);
+  color:rgba(201,164,97,0.6);cursor:pointer;transition:all 0.2s;}
+.dp-related:hover{border-color:var(--gold);color:var(--gold);}
+.dp-divider{height:1px;background:rgba(201,164,97,0.1);margin:18px 0;}
+.dp-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:300px;text-align:center;}
+.dp-empty-title{font-family:'Cinzel',serif;font-size:0.7rem;color:rgba(201,164,97,0.3);letter-spacing:0.14em;margin-bottom:10px;}
+.dp-empty-sub{font-style:italic;font-size:0.9rem;color:rgba(232,224,204,0.25);}
+
+/* NO RESULTS */
+.no-results{grid-column:1/-1;text-align:center;padding:60px 0;font-style:italic;color:var(--text-sec);}
+
+/* FOOTER */
+footer{padding:36px 50px;border-top:1px solid rgba(201,164,97,0.13);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;}
+.fl{font-style:italic;font-size:0.9rem;color:var(--text-sec);line-height:1.75;}
+.fc{text-align:center;}
+.fc-wm{font-family:'Cinzel',serif;font-size:0.78rem;color:var(--gold);letter-spacing:0.22em;}
+.fc-tl{font-style:italic;font-size:0.82rem;color:var(--text-sec);margin-top:5px;}
+.fr{text-align:right;font-family:'Cinzel',serif;font-size:0.58rem;color:var(--text-sec);letter-spacing:0.1em;line-height:1.8;}
+
+@media(max-width:1100px){.two-panel{grid-template-columns:1fr;}.detail-panel{position:static;max-height:none;}}
+@media(max-width:700px){.terms-panel{grid-template-columns:1fr;}.lex-body{padding:30px 22px 60px;}.hero-overlay{grid-template-columns:1fr;}.hero-left-text{border-right:none;padding-right:0;border-bottom:1px solid rgba(201,164,97,0.25);padding-bottom:20px;}nav{padding:0 20px;}.nav-links{gap:16px;}.nav-links a:nth-child(3){display:none;}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">METAVOXA PRESS</a>
+  <div class="nav-links">
+    <a href="index.html">DISPATCHES</a>
+    <a href="star-of-the-month.html">STAR OF THE MONTH</a>
+    <a href="lexicon.html" class="active">THE METAVOXA LEXICON</a>
+  </div>
+  <a href="archive.html" class="nav-archive">PRESS ARCHIVE<span class="dot">●</span></a>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <section class="lex-hero" id="lexHero">
+    <img src="lexicon-hero.jpg" alt="The MetaVoxa Lexicon"
+      onerror="this.style.display='none';document.getElementById('heroFallback').style.display='block'">
+    <div class="hero-fallback" id="heroFallback" style="display:none"></div>
+    <div class="hero-overlay">
+      <div class="hero-left-text">
+        <p class="hero-page-num">MV · I</p>
+        <h1 class="hero-book-title">The MetaVoxa<br>Lexicon</h1>
+        <p class="hero-book-sub">A LIVING LANGUAGE INDEX<br>FOR HUMAN EXPERIENCE,<br>SYSTEMS &amp; STRUCTURES</p>
+      </div>
+      <div class="hero-right-text">
+        <p class="hero-right-title">The Language Index for realities systems have not learned to name.</p>
+        <p class="hero-right-desc">A living vocabulary built from lived experience, systems analysis, and the discipline of naming what was previously misread.</p>
+        <a href="#index" class="enter-btn">ENTER THE INDEX →</a>
+        <p class="veritas">VERITAS PER VOCEM</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDEX -->
+  <section class="lex-body" id="index">
+    <div class="controls">
+      <div class="cats-row">
+        <button class="ccat active" data-cat="ALL">ALL</button>
+        <button class="ccat" data-cat="SELFHOOD">SELFHOOD</button>
+        <button class="ccat" data-cat="SYSTEMS">SYSTEMS</button>
+        <button class="ccat" data-cat="MEDICINE">MEDICINE</button>
+        <button class="ccat" data-cat="NEURODIVERGENCE">NEURODIVERGENCE</button>
+        <button class="ccat" data-cat="RELATIONSHIPS">RELATIONSHIPS</button>
+        <button class="ccat" data-cat="INFRASTRUCTURE">INFRASTRUCTURE</button>
+      </div>
+      <div class="alpha-search-row">
+        <div class="alpha-row" id="alphaRow"></div>
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="searchInput" placeholder="Search the Lexicon...">
+        </div>
+      </div>
+    </div>
+
+    <div class="two-panel">
+      <div class="terms-panel" id="termsPanel"></div>
+      <div class="detail-panel" id="detailPanel">
+        <div class="dp-empty">
+          <p class="dp-empty-title">SELECT A TERM</p>
+          <p class="dp-empty-sub">Choose a term from the index to read its full file.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="fl">WE WRITE WHAT SYSTEMS<br>WERE NOT BUILT TO HOLD.</div>
+  <div class="fc">
+    <div class="fc-wm">METAVOXA PRESS</div>
+    <div class="fc-tl">WHERE LIVED EXPERIENCE BECOMES LANGUAGE.</div>
+  </div>
+  <div class="fr">EST. 2024<br>ALL RIGHTS RESERVED</div>
+</footer>
+
+<script>
+// ── TERMS DATA ────────────────────────────────────────────
+const TERMS=[
+  {id:'A-006',name:'Adaptation',cats:['SELFHOOD','SYSTEMS'],tier:1,tierLabel:'Constitutional',
+   def:'The ongoing labour required to function within conditions that are not sustainable.',
+   origin:'MetaVoxa reframes adaptation from a neutral biological term into an evidence of sustained invisible effort. Adaptation is not proof of fit. It is proof of labour.',
+   where:['Workplaces','Clinical settings','Education','Family systems','Immigration systems'],
+   why:'A system that records adaptation without recording its cost is measuring only part of reality. Adaptation can look identical to wellness from the outside.',
+   related:['Adaptation Cost','Performed Wellness','Human Cost','Invisible Labour']},
+  {id:'A-010',name:'Adaptation Cost',cats:['SYSTEMS','SELFHOOD'],tier:2,tierLabel:'Native Concept',
+   def:'The cumulative physical, emotional, cognitive, social, and financial burden required to function within an environment not calibrated for one\'s needs.',
+   origin:'Developed to name what happens after adaptation is recorded as a success. The cost accumulates in the body performing it and appears nowhere in any output metric.',
+   where:['Neurodivergent employment','Migrant health contexts','Clinical assessment'],
+   why:'Without naming the cost, systems optimise for output while the burden compounds unseen. This creates the conditions for burnout, delayed diagnosis, and invisible collapse.',
+   related:['Adaptation','Performed Wellness','Invisible Labour','Masking Load Index']},
+  {id:'A-011',name:'Autonomy',cats:['SELFHOOD','INFRASTRUCTURE'],tier:1,tierLabel:'Constitutional',
+   def:'The right and capacity to remain the primary authority on one\'s own life.',
+   origin:'The first constitutional belief of MetaVoxa. Everything else depends on it. MetaVoxa does not rescue, prescribe, convert, or control.',
+   where:['Medical consent frameworks','Research ethics','Institutional policy'],
+   why:'Without autonomy, all frameworks designed to help become frameworks that control. Autonomy is the non-negotiable underneath all of it.',
+   related:['Interpretative Sovereignty','Lived Experience','Structural Recognition']},
+  {id:'C-004',name:'Categorical Rejection',cats:['SYSTEMS','INFRASTRUCTURE'],tier:2,tierLabel:'Native Concept',
+   def:'The moment a system rejects a reality because it lacks the structure to interpret it.',
+   origin:'Observed across clinical, bureaucratic, and professional contexts where valid experiences were dismissed due to categorical absence rather than factual inaccuracy.',
+   where:['Diagnostic systems','Immigration offices','Employment screening','Legal systems'],
+   why:'The system is not lying when it says that doesn\'t exist. It genuinely cannot see what it has no language for. This is architecture, not malice — which makes it harder to challenge.',
+   related:['Translation Failure','Structural Recognition','Visibility','Diagnostic Invisibility']},
+  {id:'D-014',name:'Diagnostic Invisibility',cats:['MEDICINE','NEURODIVERGENCE'],tier:2,tierLabel:'Native Concept',
+   def:'The condition of remaining unseen by diagnostic systems despite experiencing the reality those systems were designed to identify.',
+   origin:'Emerges wherever diagnostic instruments were validated on populations that excluded the person being assessed. Invisibility is a systems problem, not an individual failure.',
+   where:['Psychiatric assessment','ADHD and autism diagnosis','Chronic pain management'],
+   why:'Diagnostic invisibility produces a person who carries a real condition without institutional recognition — and therefore without access to the care, accommodations, or validation they need.',
+   related:['Masking Load Index','Performed Wellness','Categorical Rejection','Structural Recognition']},
+  {id:'E-008',name:'Evidence',cats:['INFRASTRUCTURE','SYSTEMS'],tier:1,tierLabel:'Constitutional',
+   def:'Structured nuanced truth that allows reality to become legible to a system.',
+   origin:'MetaVoxa treats evidence as one method of making reality visible — not reality itself. Systems can only generate evidence for questions they have learned to ask.',
+   where:['Research design','Policy frameworks','Clinical practice guidelines'],
+   why:'The absence of evidence is not evidence of absence. It is evidence of absent inquiry. This distinction changes what counts as proof.',
+   related:['Lived Experience','Observation','Signal','Translation']},
+  {id:'F-014',name:'Functional Pain',cats:['MEDICINE','SELFHOOD'],tier:2,tierLabel:'Native Concept',
+   def:'Pain that does not need to look like what systems expect in order to be real.',
+   origin:'Derived from clinical observation of patients whose pain was documented as absent because the presentation did not match the expected register — calm, verbal, culturally standardised.',
+   where:['Chronic pain clinics','Emergency medicine','Mental health assessments'],
+   why:'When clinical validation requires a specific performance of distress, those trained not to perform it are systematically undertreated. The framework investigates what valid pain looks like when the patient cannot produce the expected register.',
+   related:['Performed Wellness','Invisible Labour','Diagnostic Invisibility','Human Cost']},
+  {id:'H-007',name:'Human Cost',cats:['SYSTEMS','SELFHOOD'],tier:1,tierLabel:'Constitutional',
+   def:'The consequences borne by and the burden carried by people that remains invisible to the system benefiting from it.',
+   origin:'A reframe from "human impact" — which implies effects that stop when measured. Human cost implies accumulation, compounding, and invisibility.',
+   where:['Policy evaluation','Organisational efficiency analysis','Healthcare system design'],
+   why:'Every policy, every process, every framework eventually lands somewhere in a human life. Human cost is not a secondary concern. It is the primary one.',
+   related:['Adaptation Cost','Invisible Labour','Performed Wellness','Human Systems']},
+  {id:'I-001',name:'Interpretative Sovereignty',cats:['SYSTEMS','SELFHOOD'],tier:2,tierLabel:'Native Concept',
+   def:'The right to define and explain one\'s own experience without external override, distortion, or institutional misinterpretation.',
+   origin:'Coined to name the sovereignty of self-definition in the face of systemic invalidation. Emerges where lived reality is routinely overwritten by institutional logic.',
+   where:['Clinical settings','Education','Research','Legal systems','Social services','Workplaces','Media & public discourse'],
+   why:'Without interpretative sovereignty, all other data about a person is at risk of erasure or distortion. It is the foundation of accurate understanding, ethical research, and just systems.',
+   related:['Categorical Rejection','Performed Wellness','Lived Experience','Autonomy']},
+  {id:'I-012',name:'Inherited Threshold',cats:['SELFHOOD','RELATIONSHIPS'],tier:2,tierLabel:'Native Concept',
+   def:'The level of difficulty, discomfort, or burden a person learns to treat as normal because it has been present for so long.',
+   origin:'First appeared in the essay "What African Mothers Teach Daughters About Not Needing Anything." The threshold is not fixed — it is taught across generations.',
+   where:['Intergenerational family dynamics','Cultural resilience frameworks','Diagnostic delay research'],
+   why:'Many people never seek support because the burden they carry feels ordinary rather than exceptional. The inherited threshold is the mechanism by which suffering is normalised before it can be named.',
+   related:['Performed Wellness','Adaptation Cost','Masking Load Index','Invisible Labour']},
+  {id:'I-017',name:'Invisible Labour',cats:['SELFHOOD','SYSTEMS'],tier:2,tierLabel:'Native Concept',
+   def:'Effort required to maintain functioning that remains absent from the records used to evaluate that functioning.',
+   origin:'The category was built to hold what output metrics systematically exclude: social adaptation, emotional regulation, self-monitoring, cultural translation, administrative burden.',
+   where:['Employment assessment','Academic performance evaluation','Healthcare utilisation'],
+   why:'Invisible labour often determines outcomes while remaining entirely absent from the systems assessing performance. It is the load that makes everything else possible — and the one thing never counted.',
+   related:['Adaptation Cost','Human Cost','Performed Wellness','Inherited Threshold']},
+  {id:'L-009',name:'Lived Experience',cats:['SELFHOOD','INFRASTRUCTURE'],tier:1,tierLabel:'Constitutional',
+   def:'First-person knowledge generated through sustained interaction with a reality.',
+   origin:'MetaVoxa treats lived experience as primary data — not testimony to be weighed against real evidence, but a distinct and necessary form of it.',
+   where:['Research design','Policy consultation','Clinical assessment','Community advocacy'],
+   why:'The woman who has spent two decades navigating a diagnostic system not built for her carries knowledge about that system that the system does not hold about itself. That knowledge is not less valid because it has not been peer reviewed.',
+   related:['Evidence','Translation','Autonomy','Interpretative Sovereignty']},
+  {id:'M-007',name:'Masking Load Index',cats:['NEURODIVERGENCE','MEDICINE'],tier:2,tierLabel:'Native Concept',
+   def:'A proposed measure of the cumulative signal associated with sustained masking and adaptive performance.',
+   origin:'Filed as patent framework Aktenzeichen 20 2026 002 446.1. Developed in response to clinical encounters where a patient\'s chart reads "no concerns" while their internal physiology is in autonomic collapse.',
+   where:['ADHD and autism clinical assessment','Neurodivergent workplace health','Research on diagnostic accuracy'],
+   why:'Rather than asking whether a person appears functional, the MLI asks how much effort is required to maintain that appearance. The question changes what gets measured.',
+   related:['Diagnostic Invisibility','Adaptation Cost','Performed Wellness','Functional Pain']},
+  {id:'N-003',name:'Noise',cats:['SYSTEMS','INFRASTRUCTURE'],tier:1,tierLabel:'Constitutional',
+   def:'Information that appears meaningful but does not reliably reveal the structure producing it.',
+   origin:'MetaVoxa distinguishes noise from signal not by volume or institutional weight but by whether data reliably points toward underlying structure.',
+   where:['Research methodology','Clinical assessment design','Data governance'],
+   why:'Noise can dominate reporting while signal disappears. Many institutional datasets measure presentation rather than cost — producing noise in the shape of evidence.',
+   related:['Signal','Observation','Evidence','Performed Wellness']},
+  {id:'O-001',name:'Observation',cats:['INFRASTRUCTURE','SYSTEMS'],tier:1,tierLabel:'Constitutional',
+   def:'The disciplined act of noticing reality before it has been fully explained.',
+   origin:'Every MetaVoxa investigation begins with observation. It does not require certainty, proof, or explanation — only sustained attention.',
+   where:['Research inception','Clinical practice','Systems investigation'],
+   why:'Premature explanation closes off observation. MetaVoxa treats the unresolved observation as an asset, not a problem to be managed.',
+   related:['Signal','Evidence','Inquiry','Pattern']},
+  {id:'P-013',name:'Partial Record',cats:['INFRASTRUCTURE','SYSTEMS'],tier:2,tierLabel:'Native Concept',
+   def:'A record that captures outcomes while failing to capture the cost required to produce them.',
+   origin:'Most institutional records are partial records. Grades record performance but not effort. Employment records capture output but not burden. Medical records document symptoms but often miss adaptation.',
+   where:['Medical documentation','Employment records','Academic transcripts','Research data'],
+   why:'The partial record creates the illusion of completeness while omitting crucial information. It is the primary mechanism by which invisible labour stays invisible.',
+   related:['Invisible Labour','Performed Wellness','Human Cost','Diagnostic Invisibility']},
+  {id:'P-022',name:'Performed Wellness',cats:['SELFHOOD','MEDICINE'],tier:2,tierLabel:'Native Concept',
+   def:'The appearance of wellbeing produced through adaptation, regardless of the underlying cost required to maintain it.',
+   origin:'Observed in clinical encounters where a patient\'s composed presentation was being recorded as evidence against the complaint. The performance meets the system\'s threshold. The cost accumulates behind it.',
+   where:['Clinical assessment','Psychiatric evaluation','Workplace health screening','Educational settings'],
+   why:'Systems frequently mistake performed wellness for actual wellness because they measure visible outputs rather than invisible costs. Functioning is not diagnosis. Composure is not health.',
+   related:['Adaptation Cost','Masking Load Index','Invisible Labour','Partial Record']},
+  {id:'S-002',name:'Signal',cats:['INFRASTRUCTURE','SYSTEMS'],tier:1,tierLabel:'Constitutional',
+   def:'A recurring suppressed evidence that reveals something about the structure producing it.',
+   origin:'Signals often appear before anyone can see or interpret them. MetaVoxa treats signals as clues pointing toward hidden mechanisms, unmet needs, or incomplete frameworks.',
+   where:['Research design','Clinical observation','Policy analysis'],
+   why:'What a system repeatedly cannot see is more informative than what it easily records. Signal is where structural investigation begins.',
+   related:['Noise','Observation','Evidence','Pattern']},
+  {id:'S-016',name:'Structural Recognition',cats:['SYSTEMS','INFRASTRUCTURE'],tier:2,tierLabel:'Native Concept',
+   def:'The capacity of a system to accurately perceive and respond to a reality it was not originally designed to detect.',
+   origin:'Recognition becomes meaningful only when it changes outcomes. Awareness without structural change is not recognition — it is acknowledgement without accountability.',
+   where:['Institutional reform','Diagnostic framework updates','Policy design'],
+   why:'The gap between awareness and structural recognition is where most harm continues. MetaVoxa distinguishes between a system that has heard about the problem and one that has built new instruments to respond to it.',
+   related:['Categorical Rejection','Diagnostic Invisibility','Visibility','Translation']},
+  {id:'T-004',name:'Translation',cats:['INFRASTRUCTURE','SYSTEMS'],tier:1,tierLabel:'Constitutional',
+   def:'The act of carrying biological, sociological, and environmental complexity across systems without losing what is true about it.',
+   origin:'Translation sits at the centre of MetaVoxa\'s work. It connects lived experience with research, healthcare with technology, and human reality with institutional language.',
+   where:['Cross-disciplinary research','Policy communication','Clinical documentation','Public health education'],
+   why:'Good translation increases understanding without reducing complexity into distortion. The gap between what is happening and what institutions can receive is not a communication problem. It is a structural one.',
+   related:['Translation Failure','Lived Experience','Evidence','Structural Recognition']},
+  {id:'T-018',name:'Translation Failure',cats:['SYSTEMS','INFRASTRUCTURE'],tier:2,tierLabel:'Native Concept',
+   def:'The loss of meaning that occurs when a reality moves between systems unable to receive it accurately.',
+   origin:'Translation failure occurs when a person\'s experience enters a framework that lacks the language, assumptions, or instruments needed to interpret it. The information arrives. The meaning does not.',
+   where:['Clinical documentation','Research publication','Policy translation','Cross-cultural healthcare'],
+   why:'Many institutional blind spots are fundamentally translation failures. The question is not whether something was communicated, but whether the receiving system had the instruments to understand it.',
+   related:['Translation','Categorical Rejection','Structural Recognition','Visibility']},
+  {id:'V-005',name:'Visibility',cats:['SYSTEMS','INFRASTRUCTURE'],tier:1,tierLabel:'Constitutional',
+   def:'The condition of being legible to a particular system.',
+   origin:'Visibility is not neutral. Every system determines what counts as visible through the categories, measurements, and assumptions it uses. MetaVoxa investigates how visibility is constructed and who remains unseen.',
+   where:['Diagnostic systems','Research frameworks','Policy priorities','Media representation'],
+   why:'The problem is not only that people are unseen. The problem is that institutions create narrow definitions of what counts as visible, and then mistake those definitions for objective thresholds.',
+   related:['Structural Recognition','Categorical Rejection','Diagnostic Invisibility','Signal']},
+];
+
+// ── ALPHABET INDEX ────────────────────────────────────────
+function buildAlpha(){
+  const letters=['#','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+  const active=new Set(TERMS.map(t=>t.name[0].toUpperCase()));
+  document.getElementById('alphaRow').innerHTML=letters.map(l=>`
+    <span class="alph${active.has(l)||l==='#'?'':' dimmed'}" data-letter="${l}">${l}</span>
+  `).join('');
+  document.querySelectorAll('.alph').forEach(a=>{
+    a.addEventListener('click',()=>{
+      document.querySelectorAll('.alph').forEach(x=>x.classList.remove('active'));
+      a.classList.add('active');
+      const letter=a.dataset.letter;
+      currentLetter=letter==='#'?null:letter;
+      renderTerms();
+    });
+  });
+}
+
+// ── STATE ─────────────────────────────────────────────────
+let currentCat='ALL',currentLetter=null,currentSearch='',selectedTermId=null;
+
+// ── FILTER + RENDER TERMS ────────────────────────────────
+function getFiltered(){
+  return TERMS.filter(t=>{
+    const catOk=currentCat==='ALL'||t.cats.includes(currentCat);
+    const letterOk=!currentLetter||t.name[0].toUpperCase()===currentLetter;
+    const searchOk=!currentSearch||t.name.toLowerCase().includes(currentSearch.toLowerCase())||t.def.toLowerCase().includes(currentSearch.toLowerCase());
+    return catOk&&letterOk&&searchOk;
+  });
+}
+
+function renderTerms(){
+  const filtered=getFiltered();
+  const panel=document.getElementById('termsPanel');
+  if(!filtered.length){
+    panel.innerHTML='<div class="no-results"><em>No terms match this filter.</em></div>';
+    return;
+  }
+  panel.innerHTML=filtered.map(t=>`
+    <div class="term-card${selectedTermId===t.id?' selected':''}" data-id="${t.id}">
+      <div class="tc-id">
+        <span>${t.id}</span>
+        <span style="font-size:0.48rem;color:rgba(201,164,97,0.4)">${t.tierLabel.toUpperCase()}</span>
+      </div>
+      <div class="tc-cats">${t.cats.join(' · ')}</div>
+      <h3 class="tc-name">${t.name}</h3>
+      <p class="tc-def">${t.def}</p>
+      <span class="tc-link">VIEW FILE →</span>
+    </div>
+  `).join('');
+  document.querySelectorAll('.term-card').forEach(card=>{
+    card.addEventListener('click',()=>{
+      selectedTermId=card.dataset.id;
+      renderTerms();
+      renderDetail(TERMS.find(t=>t.id===selectedTermId));
+    });
+  });
+}
+
+// ── RENDER DETAIL ─────────────────────────────────────────
+function renderDetail(t){
+  if(!t){return;}
+  document.getElementById('detailPanel').innerHTML=`
+    <div class="dp-header">
+      <div>
+        <div class="dp-id">${t.id}</div>
+        <div class="dp-tf">TERM FILE</div>
+      </div>
+      <svg class="dp-compass" width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <circle cx="18" cy="18" r="17" stroke="#C9A461" stroke-width="0.8"/>
+        <line x1="18" y1="2" x2="18" y2="34" stroke="#C9A461" stroke-width="0.6"/>
+        <line x1="2" y1="18" x2="34" y2="18" stroke="#C9A461" stroke-width="0.6"/>
+        <polygon points="18,6 20,16 18,14 16,16" fill="#C9A461"/>
+        <circle cx="18" cy="18" r="2" fill="#C9A461"/>
+      </svg>
+    </div>
+    <h2 class="dp-name">${t.name}</h2>
+    <div class="dp-cats">${t.cats.map(c=>`<span class="dp-cat">${c}</span>`).join('')}</div>
+    <p class="dp-veritas">VERITAS PER VOCEM · ${t.tierLabel.toUpperCase()}</p>
+    <div class="dp-section">
+      <div class="dp-section-label">DEFINITION</div>
+      <p class="dp-text">${t.def}</p>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-label">FIELD NOTE / ORIGIN</div>
+      <p class="dp-text">${t.origin}</p>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-label">WHERE IT APPEARS</div>
+      <div class="dp-chips">${t.where.map(w=>`<span class="dp-chip">${w}</span>`).join('')}</div>
+    </div>
+    <div class="dp-section">
+      <div class="dp-section-label">WHY IT MATTERS</div>
+      <p class="dp-text">${t.why}</p>
+    </div>
+    <div class="dp-divider"></div>
+    <div class="dp-section">
+      <div class="dp-section-label">RELATED TERMS</div>
+      <div class="dp-chips">${t.related.map(r=>`<span class="dp-related" onclick="searchTerm('${r}')">${r}</span>`).join('')}</div>
+    </div>
+  `;
+}
+
+function searchTerm(name){
+  document.getElementById('searchInput').value=name;
+  currentSearch=name;
+  currentLetter=null;
+  document.querySelectorAll('.alph').forEach(a=>a.classList.remove('active'));
+  renderTerms();
+}
+
+// ── CATEGORY FILTER ───────────────────────────────────────
+document.querySelectorAll('.ccat').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.ccat').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat=btn.dataset.cat;
+    currentLetter=null;
+    document.querySelectorAll('.alph').forEach(a=>a.classList.remove('active'));
+    renderTerms();
+  });
+});
+
+// ── SEARCH ────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('input',e=>{
+  currentSearch=e.target.value;
+  currentLetter=null;
+  document.querySelectorAll('.alph').forEach(a=>a.classList.remove('active'));
+  renderTerms();
+});
+
+// ── INIT ─────────────────────────────────────────────────
+buildAlpha();
+renderTerms();
+// Auto-select first term
+if(TERMS.length){
+  selectedTermId=TERMS.find(t=>t.id==='I-001')?.id||TERMS[0].id;
+  renderTerms();
+  renderDetail(TERMS.find(t=>t.id===selectedTermId));
+}
+</script>
+</body>
+</html>
