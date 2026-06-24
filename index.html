@@ -3,197 +3,1115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Dispatches | MetaVoxa Press</title>
+
+<meta name="description" content="MetaVoxa Press is where lived experience becomes language — dispatches, essays, and language systems from the edge of systems, selfhood, medicine, and meaning.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "MetaVoxa",
+  "url": "https://metavoxa.com",
+  "sameAs": [
+    "https://open.substack.com/pub/metavoxa",
+    "https://www.linkedin.com/in/martha-koroma-67a28b191",
+    "https://www.instagram.com/kwissbae",
+    "https://orcid.org/0000-0003-4152-3863",
+    "https://www.marthakoroma.com",
+    "https://cra.marthakoroma.com",
+    "https://github.com/semresident222-collab"
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Martha Wuya Koroma",
+    "url": "https://www.marthakoroma.com"
+  }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --bg:#0d0c09;--gold:#C9A461;--gold-deep:#B8941F;--gold-soft:#D4B870;
-  --card:#F5F0E8;--card-border:#DDD5BE;--card-shadow:0 6px 30px rgba(0,0,0,0.35);
-  --text:#E8E0CC;--text-sec:#8A7A5A;--ink:#1A1410;--ink-sec:#5A4E3A;
+  --bg:#0d0c09;
+  --bg-deep:#070604;
+  --gold:#C9A461;
+  --gold-deep:#B8941F;
+  --gold-soft:#D4B870;
+  --card:#F5F0E8;
+  --card-border:#DDD5BE;
+  --card-shadow:0 6px 30px rgba(0,0,0,0.35);
+  --text:#E8E0CC;
+  --text-sec:#8A7A5A;
+  --ink:#1A1410;
+  --ink-sec:#5A4E3A;
+  --line:rgba(201,164,97,0.14);
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 
-.grain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;opacity:0.022;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Cormorant Garamond',serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+body.intro-lock{
+  overflow:hidden;
+}
+
+.grain{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:999;
+  opacity:0.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* INTRO OVERLAY */
+.press-intro{
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(201,164,97,0.12), transparent 32%),
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 22%),
+    radial-gradient(circle at 80% 75%, rgba(201,164,97,0.08), transparent 24%),
+    var(--bg-deep);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  transition:opacity 1.2s ease, visibility 1.2s ease;
+}
+
+.press-intro.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.intro-core{
+  position:relative;
+  z-index:4;
+  text-align:center;
+  padding:0 24px;
+  animation:introCore 4.4s ease forwards;
+}
+
+.intro-kicker{
+  font-family:'Cinzel',serif;
+  font-size:0.66rem;
+  color:var(--gold);
+  letter-spacing:0.32em;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+
+.intro-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.2rem,7vw,6.8rem);
+  font-style:italic;
+  font-weight:400;
+  line-height:0.95;
+  color:var(--text);
+  text-shadow:0 0 40px rgba(201,164,97,0.16);
+}
+
+.intro-sub{
+  font-size:clamp(1rem,2vw,1.4rem);
+  font-style:italic;
+  color:var(--text-sec);
+  margin-top:22px;
+  letter-spacing:0.02em;
+}
+
+.intro-skip{
+  position:absolute;
+  right:34px;
+  bottom:30px;
+  z-index:6;
+  background:transparent;
+  border:1px solid rgba(201,164,97,0.35);
+  color:var(--gold);
+  font-family:'Cinzel',serif;
+  font-size:0.58rem;
+  letter-spacing:0.16em;
+  padding:9px 14px;
+  cursor:pointer;
+  transition:all 0.25s ease;
+}
+
+.intro-skip:hover{
+  background:rgba(201,164,97,0.1);
+  border-color:var(--gold);
+}
+
+.press-object{
+  position:absolute;
+  z-index:2;
+  color:rgba(232,224,204,0.42);
+  font-family:'Cinzel',serif;
+  letter-spacing:0.13em;
+  text-transform:uppercase;
+  filter:blur(0.1px);
+  animation:floatObject 4.6s ease-in-out forwards;
+}
+
+.press-object.question{
+  max-width:250px;
+  font-size:clamp(0.58rem,1vw,0.78rem);
+  line-height:1.7;
+  color:rgba(201,164,97,0.56);
+}
+
+.press-object.icon{
+  font-size:clamp(1.4rem,3vw,2.6rem);
+  color:rgba(232,224,204,0.25);
+}
+
+.press-object.rec{
+  font-size:0.68rem;
+  color:rgba(255,80,60,0.65);
+}
+
+.press-object.flash{
+  width:90px;
+  height:60px;
+  border:1px solid rgba(201,164,97,0.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:0.56rem;
+  color:rgba(201,164,97,0.55);
+}
+
+.p1{top:17%;left:8%;animation-delay:0.1s;}
+.p2{top:22%;right:10%;animation-delay:0.25s;}
+.p3{bottom:22%;left:12%;animation-delay:0.35s;}
+.p4{bottom:18%;right:14%;animation-delay:0.2s;}
+.p5{top:49%;left:5%;animation-delay:0.45s;}
+.p6{top:52%;right:6%;animation-delay:0.15s;}
+.p7{top:11%;left:45%;animation-delay:0.5s;}
+.p8{bottom:12%;left:44%;animation-delay:0.3s;}
+.p9{top:35%;left:21%;animation-delay:0.2s;}
+.p10{top:34%;right:22%;animation-delay:0.4s;}
+.p11{bottom:33%;left:28%;animation-delay:0.1s;}
+.p12{bottom:35%;right:27%;animation-delay:0.55s;}
+
+.flash-burst{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+}
+
+.flash-burst::before,
+.flash-burst::after{
+  content:"";
+  position:absolute;
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  background:rgba(255,244,216,0.12);
+  filter:blur(28px);
+  opacity:0;
+  animation:cameraFlash 4.2s ease forwards;
+}
+
+.flash-burst::before{
+  top:18%;
+  right:18%;
+  animation-delay:0.7s;
+}
+
+.flash-burst::after{
+  bottom:18%;
+  left:16%;
+  animation-delay:1.4s;
+}
+
+@keyframes introCore{
+  0%{opacity:0;transform:translateY(12px) scale(0.98);}
+  16%{opacity:1;transform:translateY(0) scale(1);}
+  72%{opacity:1;filter:blur(0);}
+  100%{opacity:0;filter:blur(4px);transform:translateY(-8px) scale(1.01);}
+}
+
+@keyframes floatObject{
+  0%{opacity:0;transform:translateY(18px) scale(0.96) rotate(-2deg);}
+  16%{opacity:1;}
+  58%{opacity:0.85;transform:translateY(0) scale(1) rotate(1deg);}
+  100%{opacity:0;transform:translateY(-34px) scale(1.04) rotate(4deg);filter:blur(4px);}
+}
+
+@keyframes cameraFlash{
+  0%,28%,100%{opacity:0;}
+  34%{opacity:1;}
+  39%{opacity:0;}
+  62%{opacity:0.8;}
+  68%{opacity:0;}
+}
+
+/* PAGE REVEAL */
+.site-shell{
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity 1.1s ease, transform 1.1s ease;
+}
+
+.site-shell.show{
+  opacity:1;
+  transform:translateY(0);
+}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;
-  display:flex;align-items:center;justify-content:space-between;padding:0 50px;
-  background:rgba(13,12,9,0.96);backdrop-filter:blur(12px);
-  border-bottom:1px solid rgba(201,164,97,0.14);}
-.nav-logo{font-family:'Cinzel',serif;font-size:0.78rem;color:var(--gold);letter-spacing:0.22em;text-decoration:none;}
-.nav-links{display:flex;gap:36px;}
-.nav-links a{font-family:'Cinzel',serif;font-size:0.68rem;color:var(--text-sec);letter-spacing:0.12em;text-decoration:none;transition:color 0.3s;}
-.nav-links a:hover{color:var(--gold);}
-.nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
-.nav-archive{font-family:'Cinzel',serif;font-size:0.68rem;color:var(--text-sec);letter-spacing:0.12em;text-decoration:none;}
-.nav-archive .dot{color:var(--gold);margin-left:3px;}
+nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:200;
+  height:58px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 50px;
+  background:rgba(13,12,9,0.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav-logo{
+  font-family:'Cinzel',serif;
+  font-size:0.78rem;
+  color:var(--gold);
+  letter-spacing:0.22em;
+  text-decoration:none;
+}
+
+.nav-links{
+  display:flex;
+  gap:36px;
+}
+
+.nav-links a{
+  font-family:'Cinzel',serif;
+  font-size:0.68rem;
+  color:var(--text-sec);
+  letter-spacing:0.12em;
+  text-decoration:none;
+  transition:color 0.3s;
+}
+
+.nav-links a:hover{
+  color:var(--gold);
+}
+
+.nav-links a.active{
+  color:var(--gold);
+  border-bottom:1px solid var(--gold);
+  padding-bottom:2px;
+}
+
+.nav-archive{
+  font-family:'Cinzel',serif;
+  font-size:0.68rem;
+  color:var(--text-sec);
+  letter-spacing:0.12em;
+  text-decoration:none;
+}
+
+.nav-archive .dot{
+  color:var(--gold);
+  margin-left:3px;
+}
 
 /* HERO */
-main{padding-top:58px;}
-.hero{padding:80px 50px 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;}
-.hero-eyebrow{font-family:'Cinzel',serif;font-size:0.68rem;color:var(--gold);letter-spacing:0.22em;margin-bottom:18px;}
-.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,6vw,5.5rem);font-style:italic;font-weight:400;line-height:1;margin-bottom:22px;color:var(--text);}
-.hero-sub{font-style:italic;font-size:clamp(1rem,1.8vw,1.25rem);color:var(--text-sec);max-width:420px;line-height:1.55;}
-.hero-right{font-family:'Cinzel',serif;font-size:0.62rem;color:var(--text-sec);letter-spacing:0.14em;line-height:1.9;text-align:right;flex-shrink:0;margin-top:8px;}
+main{
+  padding-top:58px;
+}
+
+.hero{
+  padding:90px 50px 48px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+}
+
+.hero-eyebrow{
+  font-family:'Cinzel',serif;
+  font-size:0.68rem;
+  color:var(--gold);
+  letter-spacing:0.22em;
+  margin-bottom:18px;
+}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.2rem,6vw,5.5rem);
+  font-style:italic;
+  font-weight:400;
+  line-height:1;
+  margin-bottom:22px;
+  color:var(--text);
+}
+
+.hero-sub{
+  font-style:italic;
+  font-size:clamp(1rem,1.8vw,1.25rem);
+  color:var(--text-sec);
+  max-width:460px;
+  line-height:1.55;
+}
+
+.hero-right{
+  font-family:'Cinzel',serif;
+  font-size:0.62rem;
+  color:var(--text-sec);
+  letter-spacing:0.14em;
+  line-height:1.9;
+  text-align:right;
+  flex-shrink:0;
+  margin-top:8px;
+}
 
 /* FEATURED */
-.featured-wrap{padding:0 50px 48px;}
-.featured-card{
-  background:var(--card);border:1px solid var(--card-border);
-  display:grid;grid-template-columns:1fr 1fr;
-  box-shadow:var(--card-shadow);position:relative;overflow:hidden;
+.featured-wrap{
+  padding:0 50px 48px;
 }
-.clip{position:absolute;top:-2px;left:34px;z-index:10;opacity:0.7;}
-.feat-left{padding:50px 40px 40px;}
-.feat-label{font-family:'Cinzel',serif;font-size:0.62rem;color:var(--gold-deep);letter-spacing:0.22em;margin-bottom:22px;}
-.feat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:400;color:var(--ink);line-height:1.25;margin-bottom:18px;}
-.feat-desc{font-size:1rem;color:var(--ink-sec);line-height:1.7;margin-bottom:28px;}
-.feat-meta{font-family:'Cinzel',serif;font-size:0.6rem;color:var(--ink-sec);letter-spacing:0.1em;margin-bottom:22px;}
-.feat-link{font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.14em;color:var(--gold-deep);text-decoration:none;border-bottom:1px solid var(--gold-deep);padding-bottom:2px;transition:all 0.3s;}
-.feat-link:hover{color:var(--gold);border-color:var(--gold);}
-.feat-right{position:relative;overflow:hidden;min-height:320px;}
-.feat-right img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%) contrast(1.05);}
-.feat-right-empty{width:100%;height:100%;background:linear-gradient(135deg,#1A1810 0%,#14130D 100%);display:flex;align-items:center;justify-content:center;}
-.feat-right-empty span{font-family:'Cinzel',serif;font-size:0.6rem;color:rgba(201,164,97,0.3);letter-spacing:0.2em;}
+
+.featured-card{
+  background:var(--card);
+  border:1px solid var(--card-border);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  box-shadow:var(--card-shadow);
+  position:relative;
+  overflow:hidden;
+  animation:paperIn 0.8s ease both;
+}
+
+.clip{
+  position:absolute;
+  top:-2px;
+  left:34px;
+  z-index:10;
+  opacity:0.7;
+}
+
+.feat-left{
+  padding:50px 40px 40px;
+}
+
+.feat-label{
+  font-family:'Cinzel',serif;
+  font-size:0.62rem;
+  color:var(--gold-deep);
+  letter-spacing:0.22em;
+  margin-bottom:22px;
+}
+
+.feat-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,2.8vw,2.3rem);
+  font-weight:400;
+  color:var(--ink);
+  line-height:1.25;
+  margin-bottom:18px;
+}
+
+.feat-desc{
+  font-size:1rem;
+  color:var(--ink-sec);
+  line-height:1.7;
+  margin-bottom:28px;
+}
+
+.feat-meta{
+  font-family:'Cinzel',serif;
+  font-size:0.6rem;
+  color:var(--ink-sec);
+  letter-spacing:0.1em;
+  margin-bottom:22px;
+}
+
+.feat-link{
+  font-family:'Cinzel',serif;
+  font-size:0.62rem;
+  letter-spacing:0.14em;
+  color:var(--gold-deep);
+  text-decoration:none;
+  border-bottom:1px solid var(--gold-deep);
+  padding-bottom:2px;
+  transition:all 0.3s;
+}
+
+.feat-link:hover{
+  color:var(--gold);
+  border-color:var(--gold);
+}
+
+.feat-right{
+  position:relative;
+  overflow:hidden;
+  min-height:320px;
+}
+
+.feat-right img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:grayscale(15%) contrast(1.05);
+  transform:scale(1.02);
+}
+
+.feat-right-empty{
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(circle at 50% 40%,rgba(201,164,97,0.12),transparent 35%),
+    linear-gradient(135deg,#1A1810 0%,#14130D 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.feat-right-empty span{
+  font-family:'Cinzel',serif;
+  font-size:0.6rem;
+  color:rgba(201,164,97,0.3);
+  letter-spacing:0.2em;
+}
 
 /* BROWSE */
-.browse-wrap{padding:0 50px 80px;}
-.filter-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:22px;border-bottom:1px solid rgba(201,164,97,0.13);margin-bottom:36px;}
-.browse-label{font-family:'Cinzel',serif;font-size:0.6rem;color:var(--text-sec);letter-spacing:0.16em;margin-right:6px;}
-.fbtn{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.1em;padding:5px 13px;border:1px solid rgba(201,164,97,0.28);background:transparent;color:var(--text-sec);cursor:pointer;transition:all 0.25s;}
-.fbtn:hover{color:var(--gold);border-color:var(--gold);}
-.fbtn.active{background:var(--gold);color:var(--bg);border-color:var(--gold);}
-.sort-wrap{margin-left:auto;}
-.sort-wrap select{font-family:'Cinzel',serif;font-size:0.58rem;color:var(--text-sec);letter-spacing:0.1em;background:transparent;border:none;cursor:pointer;outline:none;}
-.sort-wrap select option{background:#1a1810;color:var(--text-sec);}
+.browse-wrap{
+  padding:0 50px 80px;
+}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.card{background:var(--card);border:1px solid var(--card-border);padding:26px;box-shadow:var(--card-shadow);transition:transform 0.25s,box-shadow 0.25s;text-decoration:none;display:flex;flex-direction:column;cursor:pointer;}
-.card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.38);}
-.card-hd{font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:0.12em;margin-bottom:14px;display:flex;gap:6px;align-items:center;}
-.c-num{color:var(--ink-sec);}
-.c-cat{font-weight:500;}
-.c-title{font-family:'Cormorant Garamond',serif;font-size:1.28rem;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:12px;}
-.c-desc{font-size:0.92rem;color:var(--ink-sec);line-height:1.62;margin-bottom:16px;flex:1;}
-.c-meta{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--ink-sec);letter-spacing:0.08em;margin-bottom:14px;}
-.tags{display:flex;gap:5px;flex-wrap:wrap;}
-.tag{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.08em;padding:3px 7px;background:#E5DEC8;color:var(--ink-sec);}
+.filter-bar{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  padding-bottom:22px;
+  border-bottom:1px solid rgba(201,164,97,0.13);
+  margin-bottom:36px;
+}
+
+.browse-label{
+  font-family:'Cinzel',serif;
+  font-size:0.6rem;
+  color:var(--text-sec);
+  letter-spacing:0.16em;
+  margin-right:6px;
+}
+
+.fbtn{
+  font-family:'Cinzel',serif;
+  font-size:0.58rem;
+  letter-spacing:0.1em;
+  padding:5px 13px;
+  border:1px solid rgba(201,164,97,0.28);
+  background:transparent;
+  color:var(--text-sec);
+  cursor:pointer;
+  transition:all 0.25s;
+}
+
+.fbtn:hover{
+  color:var(--gold);
+  border-color:var(--gold);
+}
+
+.fbtn.active{
+  background:var(--gold);
+  color:var(--bg);
+  border-color:var(--gold);
+}
+
+.sort-wrap{
+  margin-left:auto;
+}
+
+.sort-wrap select{
+  font-family:'Cinzel',serif;
+  font-size:0.58rem;
+  color:var(--text-sec);
+  letter-spacing:0.1em;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  outline:none;
+}
+
+.sort-wrap select option{
+  background:#1a1810;
+  color:var(--text-sec);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--card-border);
+  padding:26px;
+  box-shadow:var(--card-shadow);
+  transition:transform 0.25s,box-shadow 0.25s;
+  text-decoration:none;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  animation:paperIn 0.7s ease both;
+}
+
+.card:hover{
+  transform:translateY(-4px) rotate(-0.2deg);
+  box-shadow:0 12px 40px rgba(0,0,0,0.38);
+}
+
+.card-hd{
+  font-family:'Cinzel',serif;
+  font-size:0.56rem;
+  letter-spacing:0.12em;
+  margin-bottom:14px;
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.c-num{
+  color:var(--ink-sec);
+}
+
+.c-cat{
+  font-weight:500;
+}
+
+.c-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.28rem;
+  font-weight:500;
+  color:var(--ink);
+  line-height:1.3;
+  margin-bottom:12px;
+}
+
+.c-desc{
+  font-size:0.92rem;
+  color:var(--ink-sec);
+  line-height:1.62;
+  margin-bottom:16px;
+  flex:1;
+}
+
+.c-meta{
+  font-family:'Cinzel',serif;
+  font-size:0.55rem;
+  color:var(--ink-sec);
+  letter-spacing:0.08em;
+  margin-bottom:14px;
+}
+
+.tags{
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+
+.tag{
+  font-family:'Cinzel',serif;
+  font-size:0.5rem;
+  letter-spacing:0.08em;
+  padding:3px 7px;
+  background:#E5DEC8;
+  color:var(--ink-sec);
+}
+
+@keyframes paperIn{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 
 /* FOOTER */
-footer{padding:36px 50px;border-top:1px solid rgba(201,164,97,0.13);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;}
-.fl{font-style:italic;font-size:0.9rem;color:var(--text-sec);line-height:1.75;}
-.fc{text-align:center;}
-.fc-wm{font-family:'Cinzel',serif;font-size:0.78rem;color:var(--gold);letter-spacing:0.22em;}
-.fc-tl{font-style:italic;font-size:0.82rem;color:var(--text-sec);margin-top:5px;}
-.fr{text-align:right;font-family:'Cinzel',serif;font-size:0.58rem;color:var(--text-sec);letter-spacing:0.1em;line-height:1.8;}
+footer{
+  padding:36px 50px;
+  border-top:1px solid rgba(201,164,97,0.13);
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:20px;
+}
+
+.fl{
+  font-style:italic;
+  font-size:0.9rem;
+  color:var(--text-sec);
+  line-height:1.75;
+}
+
+.fc{
+  text-align:center;
+}
+
+.fc-wm{
+  font-family:'Cinzel',serif;
+  font-size:0.78rem;
+  color:var(--gold);
+  letter-spacing:0.22em;
+}
+
+.fc-tl{
+  font-style:italic;
+  font-size:0.82rem;
+  color:var(--text-sec);
+  margin-top:5px;
+}
+
+.fr{
+  text-align:right;
+  font-family:'Cinzel',serif;
+  font-size:0.58rem;
+  color:var(--text-sec);
+  letter-spacing:0.1em;
+  line-height:1.8;
+}
 
 /* RESPONSIVE */
-@media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr);}.featured-card{grid-template-columns:1fr;}.feat-right{height:240px;}}
-@media(max-width:600px){.grid{grid-template-columns:1fr;}.hero,.featured-wrap,.browse-wrap{padding-left:22px;padding-right:22px;}nav{padding:0 20px;}.nav-links{gap:16px;}.nav-links a:nth-child(3){display:none;}}
+@media(max-width:960px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .featured-card{
+    grid-template-columns:1fr;
+  }
+
+  .feat-right{
+    height:240px;
+  }
+
+  .hero{
+    flex-direction:column;
+  }
+
+  .hero-right{
+    text-align:left;
+  }
+}
+
+@media(max-width:720px){
+  nav{
+    padding:0 20px;
+  }
+
+  .nav-links{
+    gap:16px;
+  }
+
+  .nav-links a{
+    font-size:0.58rem;
+  }
+
+  .nav-archive{
+    display:none;
+  }
+}
+
+@media(max-width:600px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero,
+  .featured-wrap,
+  .browse-wrap{
+    padding-left:22px;
+    padding-right:22px;
+  }
+
+  .hero{
+    padding-top:70px;
+  }
+
+  .nav-links a:nth-child(2){
+    display:none;
+  }
+
+  .nav-links a:nth-child(3){
+    display:none;
+  }
+
+  .feat-left{
+    padding:42px 28px 34px;
+  }
+
+  footer{
+    padding-left:22px;
+    padding-right:22px;
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .fc{
+    text-align:left;
+  }
+
+  .fr{
+    text-align:left;
+  }
+
+  .press-object.question{
+    font-size:0.55rem;
+    max-width:170px;
+  }
+
+  .p5,
+  .p6,
+  .p11,
+  .p12{
+    display:none;
+  }
+}
 </style>
 </head>
-<body>
+
+<body class="intro-lock">
 <div class="grain"></div>
 
-<nav>
-  <a href="index.html" class="nav-logo">METAVOXA PRESS</a>
-  <div class="nav-links">
-    <a href="index.html" class="active">DISPATCHES</a>
-    <a href="star-of-the-month.html">STAR OF THE MONTH</a>
-    <a href="lexicon.html">THE METAVOXA LEXICON</a>
+<!-- INTRO OVERLAY -->
+<section class="press-intro" id="pressIntro" aria-label="MetaVoxa Press intro">
+  <div class="flash-burst"></div>
+
+  <div class="press-object question p1">WHO GETS TO NAME IT?</div>
+  <div class="press-object question p2">WHAT DID THE SYSTEM MISS?</div>
+  <div class="press-object question p3">CAN YOU EXPLAIN THAT?</div>
+  <div class="press-object question p4">WHO INTERPRETED THE RECORD?</div>
+  <div class="press-object question p5">DEFINE YOURSELF.</div>
+  <div class="press-object question p6">WHAT HAPPENED?</div>
+
+  <div class="press-object icon p7">🎙</div>
+  <div class="press-object icon p8">▣</div>
+  <div class="press-object rec p9">● REC</div>
+  <div class="press-object flash p10">FLASH</div>
+  <div class="press-object icon p11">?</div>
+  <div class="press-object icon p12">◉</div>
+
+  <div class="intro-core">
+    <div class="intro-kicker">The interrogation fades</div>
+    <h1 class="intro-title">MetaVoxa Press</h1>
+    <p class="intro-sub">Where lived experience becomes language.</p>
   </div>
-  <a href="archive.html" class="nav-archive">PRESS ARCHIVE<span class="dot">●</span></a>
-</nav>
 
-<main>
-  <section class="hero">
-    <div>
-      <p class="hero-eyebrow">DISPATCHES</p>
-      <h1 class="hero-title">Dispatches</h1>
-      <p class="hero-sub"><em>Essays from the edge of systems, selfhood, medicine, and meaning.</em></p>
+  <button class="intro-skip" id="skipIntro">SKIP INTRO</button>
+</section>
+
+<div class="site-shell" id="siteShell">
+  <nav>
+    <a href="index.html" class="nav-logo">METAVOXA PRESS</a>
+
+    <div class="nav-links">
+      <a href="index.html" class="active">DISPATCHES</a>
+      <a href="star-of-the-month.html">STAR OF THE MONTH</a>
+      <a href="lexicon.html">THE METAVOXA LEXICON</a>
     </div>
-    <div class="hero-right">LONG-FORM ESSAYS<br>FROM THE METAVOXA ARCHIVE</div>
-  </section>
 
-  <section class="featured-wrap">
-    <div class="featured-card" id="featured">
-      <!-- Paper clip SVG -->
-      <svg class="clip" width="18" height="38" viewBox="0 0 18 38">
-        <rect x="2" y="0" width="14" height="38" rx="7" ry="7" fill="none" stroke="#A09070" stroke-width="1.5"/>
-        <rect x="5" y="4" width="8" height="30" rx="4" ry="4" fill="none" stroke="#A09070" stroke-width="1.2"/>
-      </svg>
-    </div>
-  </section>
+    <a href="archive.html" class="nav-archive">PRESS ARCHIVE<span class="dot">●</span></a>
+  </nav>
 
-  <section class="browse-wrap">
-    <div class="filter-bar">
-      <span class="browse-label">BROWSE ESSAYS</span>
-      <button class="fbtn active" data-f="ALL">ALL</button>
-      <button class="fbtn" data-f="SELFHOOD">SELFHOOD</button>
-      <button class="fbtn" data-f="SYSTEMS">SYSTEMS</button>
-      <button class="fbtn" data-f="MEDICINE">MEDICINE</button>
-      <button class="fbtn" data-f="NEURODIVERGENCE">NEURODIVERGENCE</button>
-      <button class="fbtn" data-f="RELATIONSHIPS">RELATIONSHIPS</button>
-      <button class="fbtn" data-f="INFRASTRUCTURE">INFRASTRUCTURE</button>
-      <div class="sort-wrap">
-        <select id="sortSel">
-          <option value="newest">SORT: NEWEST</option>
-          <option value="oldest">SORT: OLDEST</option>
-        </select>
+  <main>
+    <section class="hero">
+      <div>
+        <p class="hero-eyebrow">DISPATCHES</p>
+        <h1 class="hero-title">Dispatches</h1>
+        <p class="hero-sub"><em>Essays from the edge of systems, selfhood, medicine, and meaning.</em></p>
       </div>
-    </div>
-    <div class="grid" id="grid"></div>
-  </section>
-</main>
 
-<footer>
-  <div class="fl">WE WRITE WHAT SYSTEMS<br>WERE NOT BUILT TO HOLD.</div>
-  <div class="fc">
-    <div class="fc-wm">METAVOXA PRESS</div>
-    <div class="fc-tl">WHERE LIVED EXPERIENCE BECOMES LANGUAGE.</div>
-  </div>
-  <div class="fr">EST. 2024<br>ALL RIGHTS RESERVED</div>
-</footer>
+      <div class="hero-right">
+        LONG-FORM ESSAYS<br>
+        FROM THE METAVOXA ARCHIVE
+      </div>
+    </section>
+
+    <section class="featured-wrap">
+      <div class="featured-card" id="featured">
+        <svg class="clip" width="18" height="38" viewBox="0 0 18 38">
+          <rect x="2" y="0" width="14" height="38" rx="7" ry="7" fill="none" stroke="#A09070" stroke-width="1.5"/>
+          <rect x="5" y="4" width="8" height="30" rx="4" ry="4" fill="none" stroke="#A09070" stroke-width="1.2"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="browse-wrap">
+      <div class="filter-bar">
+        <span class="browse-label">BROWSE ESSAYS</span>
+
+        <button class="fbtn active" data-f="ALL">ALL</button>
+        <button class="fbtn" data-f="SELFHOOD">SELFHOOD</button>
+        <button class="fbtn" data-f="SYSTEMS">SYSTEMS</button>
+        <button class="fbtn" data-f="MEDICINE">MEDICINE</button>
+        <button class="fbtn" data-f="NEURODIVERGENCE">NEURODIVERGENCE</button>
+        <button class="fbtn" data-f="RELATIONSHIPS">RELATIONSHIPS</button>
+        <button class="fbtn" data-f="INFRASTRUCTURE">INFRASTRUCTURE</button>
+
+        <div class="sort-wrap">
+          <select id="sortSel" aria-label="Sort essays">
+            <option value="newest">SORT: NEWEST</option>
+            <option value="oldest">SORT: OLDEST</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid" id="grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="fl">WE WRITE WHAT SYSTEMS<br>WERE NOT BUILT TO HOLD.</div>
+
+    <div class="fc">
+      <div class="fc-wm">METAVOXA PRESS</div>
+      <div class="fc-tl">WHERE LIVED EXPERIENCE BECOMES LANGUAGE.</div>
+    </div>
+
+    <div class="fr">EST. 2024<br>ALL RIGHTS RESERVED</div>
+  </footer>
+</div>
 
 <script>
-const CAT_C={SELFHOOD:'#C9A461',SYSTEMS:'#8BA8A0',MEDICINE:'#A07878',NEURODIVERGENCE:'#8890A0',RELATIONSHIPS:'#A89070',INFRASTRUCTURE:'#90A088'};
+const CAT_C = {
+  SELFHOOD:'#C9A461',
+  SYSTEMS:'#8BA8A0',
+  MEDICINE:'#A07878',
+  NEURODIVERGENCE:'#8890A0',
+  RELATIONSHIPS:'#A89070',
+  INFRASTRUCTURE:'#90A088'
+};
 
-const DISPATCHES=[
-  {id:'001',title:'The Quiet Discipline of Letting People Be Wrong',category:'SELFHOOD',desc:'On interpretative sovereignty, emotional restraint, and the private discipline of not correcting every false reading of your life.',readTime:'12',date:'14 JUN 2026',tags:['SOVEREIGNTY','EMOTIONAL LABOUR'],featured:true,link:'https://substack.com/@metavoxapress'},
-  {id:'002',title:'What Happens After People Pleasing',category:'SELFHOOD',desc:'The grief, the recalibration, and the return to self.',readTime:'11',date:'10 JUN 2026',tags:['BOUNDARIES','HEALING'],link:'https://substack.com/@metavoxapress'},
-  {id:'003',title:'Interpretative Sovereignty',category:'SYSTEMS',desc:'The right to define the meaning of your own experience.',readTime:'9',date:'08 JUN 2026',tags:['SOVEREIGNTY','AUTONOMY'],link:'https://substack.com/@metavoxapress'},
-  {id:'004',title:'Functional Pain',category:'MEDICINE',desc:'Pain does not need to look like what systems expect to be real.',readTime:'14',date:'05 JUN 2026',tags:['PAIN','VALIDATION','CLINICAL BIAS'],link:'https://substack.com/@metavoxapress'},
-  {id:'005',title:'The Cost of Adaptation',category:'SYSTEMS',desc:'When survival becomes the most expensive skill.',readTime:'13',date:'01 JUN 2026',tags:['ADAPTATION','SURVIVAL'],link:'https://substack.com/@metavoxapress'},
-  {id:'006',title:'Performed Wellness',category:'SELFHOOD',desc:'The art of looking well while falling apart in private.',readTime:'10',date:'28 MAY 2026',tags:['MASKING','SURVIVAL','IDENTITY'],link:'https://substack.com/@metavoxapress'},
-  {id:'007',title:'The Archive of Being Misread',category:'SYSTEMS',desc:'On patterns of misrecognition and the cost of misinterpretation.',readTime:'12',date:'26 MAY 2026',tags:['MISREADING','SYSTEMIC BIAS'],link:'https://substack.com/@metavoxapress'},
-  {id:'008',title:'The Physiology of the Mask',category:'NEURODIVERGENCE',desc:'What the body does when the brain has to perform.',readTime:'15',date:'20 MAY 2026',tags:['MASKING','ADHD','AUTISM'],link:'https://substack.com/@metavoxapress'},
-  {id:'009',title:"What the Chart Doesn't Say",category:'MEDICINE',desc:'The gap between clinical record and clinical truth.',readTime:'11',date:'15 MAY 2026',tags:['HEALTHCARE','DOCUMENTATION'],link:'https://substack.com/@metavoxapress'},
-  {id:'010',title:'The Inherited Threshold',category:'SELFHOOD',desc:'On what we learn to tolerate before we know we are learning anything.',readTime:'13',date:'10 MAY 2026',tags:['INHERITANCE','RESILIENCE'],link:'https://substack.com/@metavoxapress'},
-  {id:'011',title:'What African Mothers Teach Daughters About Not Needing Anything',category:'RELATIONSHIPS',desc:'The inherited instruction to be fine, and its cost.',readTime:'16',date:'05 MAY 2026',tags:['CULTURE','MOTHERHOOD','INHERITANCE'],link:'https://substack.com/@metavoxapress'},
-  {id:'012',title:'The Word for What the System Cannot See',category:'INFRASTRUCTURE',desc:'On language, naming, and institutional blindness.',readTime:'10',date:'01 MAY 2026',tags:['LANGUAGE','INSTITUTIONS'],link:'https://substack.com/@metavoxapress'},
+const DISPATCHES = [
+  {
+    id:'001',
+    title:'The Quiet Discipline of Letting People Be Wrong',
+    category:'SELFHOOD',
+    desc:'On interpretative sovereignty, emotional restraint, and the private discipline of not correcting every false reading of your life.',
+    readTime:'12',
+    date:'14 JUN 2026',
+    sortDate:'2026-06-14',
+    tags:['SOVEREIGNTY','EMOTIONAL LABOUR'],
+    featured:true,
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'002',
+    title:'What Happens After People Pleasing',
+    category:'SELFHOOD',
+    desc:'The grief, the recalibration, and the return to self.',
+    readTime:'11',
+    date:'10 JUN 2026',
+    sortDate:'2026-06-10',
+    tags:['BOUNDARIES','HEALING'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'003',
+    title:'Interpretative Sovereignty',
+    category:'SYSTEMS',
+    desc:'The right to define the meaning of your own experience.',
+    readTime:'9',
+    date:'08 JUN 2026',
+    sortDate:'2026-06-08',
+    tags:['SOVEREIGNTY','AUTONOMY'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'004',
+    title:'Functional Pain',
+    category:'MEDICINE',
+    desc:'Pain does not need to look like what systems expect to be real.',
+    readTime:'14',
+    date:'05 JUN 2026',
+    sortDate:'2026-06-05',
+    tags:['PAIN','VALIDATION','CLINICAL BIAS'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'005',
+    title:'The Cost of Adaptation',
+    category:'SYSTEMS',
+    desc:'When survival becomes the most expensive skill.',
+    readTime:'13',
+    date:'01 JUN 2026',
+    sortDate:'2026-06-01',
+    tags:['ADAPTATION','SURVIVAL'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'006',
+    title:'Performed Wellness',
+    category:'SELFHOOD',
+    desc:'The art of looking well while falling apart in private.',
+    readTime:'10',
+    date:'28 MAY 2026',
+    sortDate:'2026-05-28',
+    tags:['MASKING','SURVIVAL','IDENTITY'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'007',
+    title:'The Archive of Being Misread',
+    category:'SYSTEMS',
+    desc:'On patterns of misrecognition and the cost of misinterpretation.',
+    readTime:'12',
+    date:'26 MAY 2026',
+    sortDate:'2026-05-26',
+    tags:['MISREADING','SYSTEMIC BIAS'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'008',
+    title:'The Physiology of the Mask',
+    category:'NEURODIVERGENCE',
+    desc:'What the body does when the brain has to perform.',
+    readTime:'15',
+    date:'20 MAY 2026',
+    sortDate:'2026-05-20',
+    tags:['MASKING','ADHD','AUTISM'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'009',
+    title:"What the Chart Doesn't Say",
+    category:'MEDICINE',
+    desc:'The gap between clinical record and clinical truth.',
+    readTime:'11',
+    date:'15 MAY 2026',
+    sortDate:'2026-05-15',
+    tags:['HEALTHCARE','DOCUMENTATION'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'010',
+    title:'The Inherited Threshold',
+    category:'SELFHOOD',
+    desc:'On what we learn to tolerate before we know we are learning anything.',
+    readTime:'13',
+    date:'10 MAY 2026',
+    sortDate:'2026-05-10',
+    tags:['INHERITANCE','RESILIENCE'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'011',
+    title:'What African Mothers Teach Daughters About Not Needing Anything',
+    category:'RELATIONSHIPS',
+    desc:'The inherited instruction to be fine, and its cost.',
+    readTime:'16',
+    date:'05 MAY 2026',
+    sortDate:'2026-05-05',
+    tags:['CULTURE','MOTHERHOOD','INHERITANCE'],
+    link:'https://substack.com/@metavoxapress'
+  },
+  {
+    id:'012',
+    title:'The Word for What the System Cannot See',
+    category:'INFRASTRUCTURE',
+    desc:'On language, naming, and institutional blindness.',
+    readTime:'10',
+    date:'01 MAY 2026',
+    sortDate:'2026-05-01',
+    tags:['LANGUAGE','INSTITUTIONS'],
+    link:'https://substack.com/@metavoxapress'
+  }
 ];
 
-// ── RENDER FEATURED ──────────────────────────────────────
+const pressIntro = document.getElementById('pressIntro');
+const skipIntro = document.getElementById('skipIntro');
+const siteShell = document.getElementById('siteShell');
+const sortSel = document.getElementById('sortSel');
+
+let activeFilter = 'ALL';
+let activeSort = 'newest';
+
+function revealSite(){
+  pressIntro.classList.add('hide');
+  siteShell.classList.add('show');
+  document.body.classList.remove('intro-lock');
+  sessionStorage.setItem('metavoxaPressIntroSeen','true');
+}
+
+function runIntro(){
+  const alreadySeen = sessionStorage.getItem('metavoxaPressIntroSeen') === 'true';
+
+  if(alreadySeen){
+    pressIntro.classList.add('hide');
+    siteShell.classList.add('show');
+    document.body.classList.remove('intro-lock');
+    return;
+  }
+
+  setTimeout(revealSite, 4300);
+}
+
+skipIntro.addEventListener('click', revealSite);
+
+function escapeHTML(value){
+  return String(value || '')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#039;");
+}
+
 function renderFeatured(){
-  const f=DISPATCHES.find(d=>d.featured);
-  if(!f)return;
-  const el=document.getElementById('featured');
-  // keep the clip SVG
-  const clip=el.querySelector('.clip');
-  el.innerHTML='';
-  el.appendChild(clip);
-  el.insertAdjacentHTML('beforeend',`
+  const f = DISPATCHES.find(d => d.featured);
+  if(!f) return;
+
+  const el = document.getElementById('featured');
+  const clip = el.querySelector('.clip');
+
+  el.innerHTML = '';
+  if(clip) el.appendChild(clip);
+
+  el.insertAdjacentHTML('beforeend', `
     <div class="feat-left">
       <p class="feat-label">FEATURED DISPATCH</p>
-      <h2 class="feat-title">${f.title}</h2>
-      <p class="feat-desc">${f.desc}</p>
-      <p class="feat-meta">DISPATCH ${f.id} &nbsp;·&nbsp; ${f.readTime} MIN READ &nbsp;·&nbsp; ${f.date}</p>
-      <a href="${f.link}" class="feat-link" target="_blank" rel="noopener">READ DISPATCH →</a>
+      <h2 class="feat-title">${escapeHTML(f.title)}</h2>
+      <p class="feat-desc">${escapeHTML(f.desc)}</p>
+      <p class="feat-meta">DISPATCH ${escapeHTML(f.id)} &nbsp;·&nbsp; ${escapeHTML(f.readTime)} MIN READ &nbsp;·&nbsp; ${escapeHTML(f.date)}</p>
+      <a href="${escapeHTML(f.link)}" class="feat-link" target="_blank" rel="noopener">READ DISPATCH →</a>
     </div>
+
     <div class="feat-right">
       <img src="featured-dispatch.jpg" alt="Featured Dispatch"
         onerror="this.outerHTML='<div class=\\'feat-right-empty\\'><span>FEATURED IMAGE</span></div>'">
@@ -201,38 +1119,59 @@ function renderFeatured(){
   `);
 }
 
-// ── RENDER GRID ───────────────────────────────────────────
-function renderGrid(filter='ALL'){
-  const list=DISPATCHES.filter(d=>!d.featured&&(filter==='ALL'||d.category===filter));
-  document.getElementById('grid').innerHTML=list.map(d=>`
-    <a href="${d.link}" target="_blank" rel="noopener" class="card" data-cat="${d.category}">
+function getFilteredList(){
+  let list = DISPATCHES.filter(d => !d.featured && (activeFilter === 'ALL' || d.category === activeFilter));
+
+  list.sort((a,b) => {
+    const da = new Date(a.sortDate);
+    const db = new Date(b.sortDate);
+    return activeSort === 'newest' ? db - da : da - db;
+  });
+
+  return list;
+}
+
+function renderGrid(){
+  const list = getFilteredList();
+
+  document.getElementById('grid').innerHTML = list.map((d, index) => `
+    <a href="${escapeHTML(d.link)}" target="_blank" rel="noopener" class="card" data-cat="${escapeHTML(d.category)}" style="animation-delay:${index * 0.035}s">
       <div class="card-hd">
-        <span class="c-num">DISPATCH ${d.id}</span>
+        <span class="c-num">DISPATCH ${escapeHTML(d.id)}</span>
         <span style="color:#8A7A5A">·</span>
-        <span class="c-cat" style="color:${CAT_C[d.category]}">${d.category}</span>
+        <span class="c-cat" style="color:${CAT_C[d.category] || '#C9A461'}">${escapeHTML(d.category)}</span>
       </div>
-      <h3 class="c-title">${d.title}</h3>
-      <p class="c-desc">${d.desc}</p>
-      <p class="c-meta">${d.readTime} MIN READ &nbsp;·&nbsp; ${d.date}</p>
-      <div class="tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+
+      <h3 class="c-title">${escapeHTML(d.title)}</h3>
+
+      <p class="c-desc">${escapeHTML(d.desc)}</p>
+
+      <p class="c-meta">${escapeHTML(d.readTime)} MIN READ &nbsp;·&nbsp; ${escapeHTML(d.date)}</p>
+
+      <div class="tags">
+        ${d.tags.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('')}
+      </div>
     </a>
   `).join('');
 }
 
-// ── FILTERS ───────────────────────────────────────────────
-let activeFilter='ALL';
-document.querySelectorAll('.fbtn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.fbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    activeFilter=btn.dataset.f;
-    renderGrid(activeFilter);
+    activeFilter = btn.dataset.f;
+    renderGrid();
   });
 });
 
-// ── INIT ─────────────────────────────────────────────────
+sortSel.addEventListener('change', () => {
+  activeSort = sortSel.value;
+  renderGrid();
+});
+
 renderFeatured();
 renderGrid();
+runIntro();
 </script>
 </body>
 </html>
