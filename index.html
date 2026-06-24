@@ -56,6 +56,7 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 html{
@@ -68,6 +69,7 @@ body{
   color:var(--text);
   min-height:100vh;
   overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
 
 body.intro-lock{
@@ -100,7 +102,7 @@ body.intro-lock{
   align-items:center;
   justify-content:center;
   overflow:hidden;
-  transition:opacity 1.2s ease, visibility 1.2s ease;
+  transition:opacity 1.6s ease, visibility 1.6s ease;
 }
 
 .press-intro.hide{
@@ -114,7 +116,7 @@ body.intro-lock{
   z-index:4;
   text-align:center;
   padding:0 24px;
-  animation:introCore 4.4s ease forwards;
+  animation:introCore 6.8s ease forwards;
 }
 
 .intro-kicker{
@@ -128,7 +130,7 @@ body.intro-lock{
 
 .intro-title{
   font-family:'Playfair Display',serif;
-  font-size:clamp(3.2rem,7vw,6.8rem);
+  font-size:clamp(2.6rem,9vw,6.8rem);
   font-style:italic;
   font-weight:400;
   line-height:0.95;
@@ -137,7 +139,7 @@ body.intro-lock{
 }
 
 .intro-sub{
-  font-size:clamp(1rem,2vw,1.4rem);
+  font-size:clamp(1rem,3.5vw,1.4rem);
   font-style:italic;
   color:var(--text-sec);
   margin-top:22px;
@@ -146,8 +148,8 @@ body.intro-lock{
 
 .intro-skip{
   position:absolute;
-  right:34px;
-  bottom:30px;
+  right:24px;
+  bottom:24px;
   z-index:6;
   background:transparent;
   border:1px solid rgba(201,164,97,0.35);
@@ -155,9 +157,11 @@ body.intro-lock{
   font-family:'Cinzel',serif;
   font-size:0.58rem;
   letter-spacing:0.16em;
-  padding:9px 14px;
+  padding:10px 16px;
   cursor:pointer;
   transition:all 0.25s ease;
+  min-height:44px;
+  min-width:44px;
 }
 
 .intro-skip:hover{
@@ -173,18 +177,18 @@ body.intro-lock{
   letter-spacing:0.13em;
   text-transform:uppercase;
   filter:blur(0.1px);
-  animation:floatObject 4.6s ease-in-out forwards;
+  animation:floatObject 6.5s ease-in-out forwards;
 }
 
 .press-object.question{
   max-width:250px;
-  font-size:clamp(0.58rem,1vw,0.78rem);
+  font-size:clamp(0.55rem,1.2vw,0.78rem);
   line-height:1.7;
   color:rgba(201,164,97,0.56);
 }
 
 .press-object.icon{
-  font-size:clamp(1.4rem,3vw,2.6rem);
+  font-size:clamp(1.2rem,3.5vw,2.6rem);
   color:rgba(232,224,204,0.25);
 }
 
@@ -234,7 +238,7 @@ body.intro-lock{
   background:rgba(255,244,216,0.12);
   filter:blur(28px);
   opacity:0;
-  animation:cameraFlash 4.2s ease forwards;
+  animation:cameraFlash 6.2s ease forwards;
 }
 
 .flash-burst::before{
@@ -251,24 +255,24 @@ body.intro-lock{
 
 @keyframes introCore{
   0%{opacity:0;transform:translateY(12px) scale(0.98);}
-  16%{opacity:1;transform:translateY(0) scale(1);}
-  72%{opacity:1;filter:blur(0);}
+  18%{opacity:1;transform:translateY(0) scale(1);}
+  75%{opacity:1;filter:blur(0);}
   100%{opacity:0;filter:blur(4px);transform:translateY(-8px) scale(1.01);}
 }
 
 @keyframes floatObject{
   0%{opacity:0;transform:translateY(18px) scale(0.96) rotate(-2deg);}
-  16%{opacity:1;}
-  58%{opacity:0.85;transform:translateY(0) scale(1) rotate(1deg);}
+  18%{opacity:1;}
+  65%{opacity:0.85;transform:translateY(0) scale(1) rotate(1deg);}
   100%{opacity:0;transform:translateY(-34px) scale(1.04) rotate(4deg);filter:blur(4px);}
 }
 
 @keyframes cameraFlash{
-  0%,28%,100%{opacity:0;}
-  34%{opacity:1;}
-  39%{opacity:0;}
-  62%{opacity:0.8;}
-  68%{opacity:0;}
+  0%,40%,100%{opacity:0;}
+  45%{opacity:1;}
+  50%{opacity:0;}
+  70%{opacity:0.8;}
+  76%{opacity:0;}
 }
 
 /* PAGE REVEAL */
@@ -306,6 +310,7 @@ nav{
   color:var(--gold);
   letter-spacing:0.22em;
   text-decoration:none;
+  white-space:nowrap;
 }
 
 .nav-links{
@@ -320,6 +325,7 @@ nav{
   letter-spacing:0.12em;
   text-decoration:none;
   transition:color 0.3s;
+  white-space:nowrap;
 }
 
 .nav-links a:hover{
@@ -338,11 +344,63 @@ nav{
   color:var(--text-sec);
   letter-spacing:0.12em;
   text-decoration:none;
+  white-space:nowrap;
 }
 
 .nav-archive .dot{
   color:var(--gold);
   margin-left:3px;
+}
+
+/* Mobile nav toggle */
+.nav-toggle{
+  display:none;
+}
+
+.nav-toggle-label{
+  display:none;
+  flex-direction:column;
+  gap:4px;
+  cursor:pointer;
+  padding:8px;
+  position:relative;
+  z-index:210;
+}
+
+.nav-toggle-label span{
+  display:block;
+  width:22px;
+  height:1.5px;
+  background:var(--gold);
+  transition:0.3s;
+}
+
+/* MOBILE NAV OVERLAY */
+.mobile-nav-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:201;
+  background:rgba(13,12,9,0.98);
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:32px;
+  padding:80px 24px;
+}
+
+.mobile-nav-overlay a{
+  font-family:'Cinzel',serif;
+  font-size:0.9rem;
+  color:var(--text-sec);
+  letter-spacing:0.16em;
+  text-decoration:none;
+  transition:color 0.3s;
+}
+
+.mobile-nav-overlay a:hover,
+.mobile-nav-overlay a.active{
+  color:var(--gold);
 }
 
 /* HERO */
@@ -524,6 +582,8 @@ main{
   color:var(--text-sec);
   letter-spacing:0.16em;
   margin-right:6px;
+  white-space:nowrap;
+  flex-shrink:0;
 }
 
 .fbtn{
@@ -536,6 +596,9 @@ main{
   color:var(--text-sec);
   cursor:pointer;
   transition:all 0.25s;
+  white-space:nowrap;
+  min-height:36px;
+  touch-action:manipulation;
 }
 
 .fbtn:hover{
@@ -601,6 +664,7 @@ main{
   display:flex;
   gap:6px;
   align-items:center;
+  flex-wrap:wrap;
 }
 
 .c-num{
@@ -707,7 +771,80 @@ footer{
   line-height:1.8;
 }
 
-/* RESPONSIVE */
+/* =========================================
+   LEXICON DRAWER (Mobile-friendly pop-up)
+   Use on lexicon.html by adding:
+   <div class="lexicon-drawer" id="lexDrawer">...</div>
+   <div class="lexicon-backdrop" id="lexBackdrop"></div>
+   ========================================= */
+.lexicon-drawer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:2500;
+  background:var(--card);
+  border-top:1px solid var(--card-border);
+  padding:28px 24px 32px;
+  transform:translateY(100%);
+  transition:transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  max-height:70vh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  box-shadow:0 -8px 40px rgba(0,0,0,0.45);
+}
+
+.lexicon-drawer.open{
+  transform:translateY(0);
+}
+
+.lexicon-drawer h3{
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;
+  color:var(--ink);
+  margin-bottom:8px;
+}
+
+.lexicon-drawer p{
+  font-size:0.95rem;
+  color:var(--ink-sec);
+  line-height:1.7;
+}
+
+.lexicon-drawer-close{
+  position:absolute;
+  top:14px;
+  right:18px;
+  background:transparent;
+  border:none;
+  font-family:'Cinzel',serif;
+  font-size:0.65rem;
+  color:var(--gold-deep);
+  letter-spacing:0.12em;
+  cursor:pointer;
+  padding:6px 10px;
+  min-height:44px;
+  min-width:44px;
+}
+
+.lexicon-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:2499;
+  background:rgba(7,6,4,0.78);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.3s ease;
+}
+
+.lexicon-backdrop.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
 @media(max-width:960px){
   .grid{
     grid-template-columns:repeat(2,1fr);
@@ -764,12 +901,12 @@ footer{
     padding-top:70px;
   }
 
-  .nav-links a:nth-child(2){
+  .nav-links{
     display:none;
   }
 
-  .nav-links a:nth-child(3){
-    display:none;
+  .nav-toggle-label{
+    display:flex;
   }
 
   .feat-left{
@@ -781,12 +918,10 @@ footer{
     padding-right:22px;
     align-items:flex-start;
     flex-direction:column;
+    gap:24px;
   }
 
-  .fc{
-    text-align:left;
-  }
-
+  .fc,
   .fr{
     text-align:left;
   }
@@ -802,6 +937,173 @@ footer{
   .p12{
     display:none;
   }
+}
+
+@media(max-width:480px){
+  .hero{
+    padding:64px 18px 36px;
+  }
+
+  .hero-title{
+    font-size:clamp(2.4rem,10vw,3.6rem);
+  }
+
+  .hero-sub{
+    font-size:1rem;
+  }
+
+  .featured-wrap,
+  .browse-wrap{
+    padding-left:18px;
+    padding-right:18px;
+  }
+
+  .filter-bar{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    gap:8px;
+    padding-bottom:18px;
+    scrollbar-width:none;
+  }
+
+  .filter-bar::-webkit-scrollbar{
+    display:none;
+  }
+
+  .fbtn{
+    flex-shrink:0;
+    padding:7px 14px;
+    font-size:0.6rem;
+  }
+
+  .sort-wrap{
+    margin-left:0;
+    flex-shrink:0;
+  }
+
+  .sort-wrap select{
+    font-size:0.6rem;
+  }
+
+  .card{
+    padding:22px;
+  }
+
+  .c-title{
+    font-size:1.15rem;
+  }
+
+  .c-desc{
+    font-size:0.9rem;
+  }
+
+  .feat-left{
+    padding:34px 22px 28px;
+  }
+
+  .feat-title{
+    font-size:1.4rem;
+  }
+
+  .feat-desc{
+    font-size:0.95rem;
+  }
+
+  .feat-right{
+    height:200px;
+  }
+
+  footer{
+    padding:28px 18px;
+  }
+
+  .fl{
+    font-size:0.85rem;
+  }
+
+  .fc-wm{
+    font-size:0.72rem;
+  }
+
+  .fc-tl{
+    font-size:0.78rem;
+  }
+
+  .fr{
+    font-size:0.55rem;
+  }
+
+  .intro-skip{
+    right:16px;
+    bottom:16px;
+    padding:8px 12px;
+  }
+
+  .press-object.question{
+    max-width:130px;
+    font-size:0.5rem;
+    line-height:1.6;
+  }
+
+  .press-object.icon{
+    font-size:1.1rem;
+  }
+
+  .press-object.flash{
+    width:70px;
+    height:46px;
+    font-size:0.5rem;
+  }
+
+  .p1{top:12%;left:5%;}
+  .p2{top:16%;right:6%;}
+  .p3{bottom:18%;left:7%;}
+  .p4{bottom:14%;right:8%;}
+  .p7{top:8%;left:42%;}
+  .p8{bottom:10%;left:40%;}
+  .p9{top:30%;left:16%;}
+  .p10{top:28%;right:18%;}
+}
+
+@media(max-width:360px){
+  .hero-title{
+    font-size:2.2rem;
+  }
+
+  .hero-sub{
+    font-size:0.95rem;
+  }
+
+  .card{
+    padding:18px;
+  }
+
+  .c-title{
+    font-size:1.05rem;
+  }
+
+  .tag{
+    font-size:0.48rem;
+    padding:3px 6px;
+  }
+}
+
+/* Mobile nav overlay active state */
+.nav-toggle:checked ~ .site-shell .mobile-nav-overlay{
+  display:flex;
+}
+
+.nav-toggle:checked ~ .site-shell nav .nav-toggle-label span:nth-child(1){
+  transform:rotate(45deg) translate(3px,3px);
+}
+
+.nav-toggle:checked ~ .site-shell nav .nav-toggle-label span:nth-child(2){
+  opacity:0;
+}
+
+.nav-toggle:checked ~ .site-shell nav .nav-toggle-label span:nth-child(3){
+  transform:rotate(-45deg) translate(3px,-3px);
 }
 </style>
 </head>
@@ -836,6 +1138,9 @@ footer{
   <button class="intro-skip" id="skipIntro">SKIP INTRO</button>
 </section>
 
+<!-- Mobile nav checkbox -->
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+
 <div class="site-shell" id="siteShell">
   <nav>
     <a href="index.html" class="nav-logo">METAVOXA PRESS</a>
@@ -847,7 +1152,21 @@ footer{
     </div>
 
     <a href="archive.html" class="nav-archive">PRESS ARCHIVE<span class="dot">●</span></a>
+
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
   </nav>
+
+  <!-- Mobile overlay menu -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay">
+    <a href="index.html">DISPATCHES</a>
+    <a href="star-of-the-month.html">STAR OF THE MONTH</a>
+    <a href="lexicon.html">THE METAVOXA LEXICON</a>
+    <a href="archive.html">PRESS ARCHIVE</a>
+  </div>
 
   <main>
     <section class="hero">
@@ -907,6 +1226,16 @@ footer{
     <div class="fr">EST. 2024<br>ALL RIGHTS RESERVED</div>
   </footer>
 </div>
+
+<!-- Lexicon drawer markup (use on lexicon.html or copy pattern) -->
+<!--
+<div class="lexicon-backdrop" id="lexBackdrop" onclick="closeLexicon()"></div>
+<div class="lexicon-drawer" id="lexDrawer">
+  <button class="lexicon-drawer-close" onclick="closeLexicon()">CLOSE ✕</button>
+  <h3 id="lexWord">Word</h3>
+  <p id="lexDef">Definition goes here.</p>
+</div>
+-->
 
 <script>
 const CAT_C = {
@@ -1079,7 +1408,7 @@ function runIntro(){
     return;
   }
 
-  setTimeout(revealSite, 4300);
+  setTimeout(revealSite, 7000);
 }
 
 skipIntro.addEventListener('click', revealSite);
@@ -1168,6 +1497,34 @@ sortSel.addEventListener('change', () => {
   activeSort = sortSel.value;
   renderGrid();
 });
+
+/* Mobile nav: close overlay when a link is clicked */
+document.querySelectorAll('.mobile-nav-overlay a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('nav-toggle').checked = false;
+  });
+});
+
+/* Lexicon drawer helpers (copy to lexicon.html) */
+function openLexicon(word, definition){
+  const drawer = document.getElementById('lexDrawer');
+  const backdrop = document.getElementById('lexBackdrop');
+  if(!drawer || !backdrop) return;
+  document.getElementById('lexWord').textContent = word;
+  document.getElementById('lexDef').textContent = definition;
+  drawer.classList.add('open');
+  backdrop.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLexicon(){
+  const drawer = document.getElementById('lexDrawer');
+  const backdrop = document.getElementById('lexBackdrop');
+  if(!drawer || !backdrop) return;
+  drawer.classList.remove('open');
+  backdrop.classList.remove('open');
+  document.body.style.overflow = '';
+}
 
 renderFeatured();
 renderGrid();
