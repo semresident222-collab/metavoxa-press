@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dispatches | MetaVoxa Press</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0c09;--gold:#C9A461;--gold-deep:#B8941F;--gold-soft:#D4B870;
+  --card:#F5F0E8;--card-border:#DDD5BE;--card-shadow:0 6px 30px rgba(0,0,0,0.35);
+  --text:#E8E0CC;--text-sec:#8A7A5A;--ink:#1A1410;--ink-sec:#5A4E3A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cormorant Garamond',serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+.grain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;opacity:0.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:58px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 50px;
+  background:rgba(13,12,9,0.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(201,164,97,0.14);}
+.nav-logo{font-family:'Cinzel',serif;font-size:0.78rem;color:var(--gold);letter-spacing:0.22em;text-decoration:none;}
+.nav-links{display:flex;gap:36px;}
+.nav-links a{font-family:'Cinzel',serif;font-size:0.68rem;color:var(--text-sec);letter-spacing:0.12em;text-decoration:none;transition:color 0.3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;}
+.nav-archive{font-family:'Cinzel',serif;font-size:0.68rem;color:var(--text-sec);letter-spacing:0.12em;text-decoration:none;}
+.nav-archive .dot{color:var(--gold);margin-left:3px;}
+
+/* HERO */
+main{padding-top:58px;}
+.hero{padding:80px 50px 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:0.68rem;color:var(--gold);letter-spacing:0.22em;margin-bottom:18px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3.2rem,6vw,5.5rem);font-style:italic;font-weight:400;line-height:1;margin-bottom:22px;color:var(--text);}
+.hero-sub{font-style:italic;font-size:clamp(1rem,1.8vw,1.25rem);color:var(--text-sec);max-width:420px;line-height:1.55;}
+.hero-right{font-family:'Cinzel',serif;font-size:0.62rem;color:var(--text-sec);letter-spacing:0.14em;line-height:1.9;text-align:right;flex-shrink:0;margin-top:8px;}
+
+/* FEATURED */
+.featured-wrap{padding:0 50px 48px;}
+.featured-card{
+  background:var(--card);border:1px solid var(--card-border);
+  display:grid;grid-template-columns:1fr 1fr;
+  box-shadow:var(--card-shadow);position:relative;overflow:hidden;
+}
+.clip{position:absolute;top:-2px;left:34px;z-index:10;opacity:0.7;}
+.feat-left{padding:50px 40px 40px;}
+.feat-label{font-family:'Cinzel',serif;font-size:0.62rem;color:var(--gold-deep);letter-spacing:0.22em;margin-bottom:22px;}
+.feat-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:400;color:var(--ink);line-height:1.25;margin-bottom:18px;}
+.feat-desc{font-size:1rem;color:var(--ink-sec);line-height:1.7;margin-bottom:28px;}
+.feat-meta{font-family:'Cinzel',serif;font-size:0.6rem;color:var(--ink-sec);letter-spacing:0.1em;margin-bottom:22px;}
+.feat-link{font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.14em;color:var(--gold-deep);text-decoration:none;border-bottom:1px solid var(--gold-deep);padding-bottom:2px;transition:all 0.3s;}
+.feat-link:hover{color:var(--gold);border-color:var(--gold);}
+.feat-right{position:relative;overflow:hidden;min-height:320px;}
+.feat-right img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%) contrast(1.05);}
+.feat-right-empty{width:100%;height:100%;background:linear-gradient(135deg,#1A1810 0%,#14130D 100%);display:flex;align-items:center;justify-content:center;}
+.feat-right-empty span{font-family:'Cinzel',serif;font-size:0.6rem;color:rgba(201,164,97,0.3);letter-spacing:0.2em;}
+
+/* BROWSE */
+.browse-wrap{padding:0 50px 80px;}
+.filter-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:22px;border-bottom:1px solid rgba(201,164,97,0.13);margin-bottom:36px;}
+.browse-label{font-family:'Cinzel',serif;font-size:0.6rem;color:var(--text-sec);letter-spacing:0.16em;margin-right:6px;}
+.fbtn{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.1em;padding:5px 13px;border:1px solid rgba(201,164,97,0.28);background:transparent;color:var(--text-sec);cursor:pointer;transition:all 0.25s;}
+.fbtn:hover{color:var(--gold);border-color:var(--gold);}
+.fbtn.active{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+.sort-wrap{margin-left:auto;}
+.sort-wrap select{font-family:'Cinzel',serif;font-size:0.58rem;color:var(--text-sec);letter-spacing:0.1em;background:transparent;border:none;cursor:pointer;outline:none;}
+.sort-wrap select option{background:#1a1810;color:var(--text-sec);}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.card{background:var(--card);border:1px solid var(--card-border);padding:26px;box-shadow:var(--card-shadow);transition:transform 0.25s,box-shadow 0.25s;text-decoration:none;display:flex;flex-direction:column;cursor:pointer;}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.38);}
+.card-hd{font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:0.12em;margin-bottom:14px;display:flex;gap:6px;align-items:center;}
+.c-num{color:var(--ink-sec);}
+.c-cat{font-weight:500;}
+.c-title{font-family:'Cormorant Garamond',serif;font-size:1.28rem;font-weight:500;color:var(--ink);line-height:1.3;margin-bottom:12px;}
+.c-desc{font-size:0.92rem;color:var(--ink-sec);line-height:1.62;margin-bottom:16px;flex:1;}
+.c-meta{font-family:'Cinzel',serif;font-size:0.55rem;color:var(--ink-sec);letter-spacing:0.08em;margin-bottom:14px;}
+.tags{display:flex;gap:5px;flex-wrap:wrap;}
+.tag{font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.08em;padding:3px 7px;background:#E5DEC8;color:var(--ink-sec);}
+
+/* FOOTER */
+footer{padding:36px 50px;border-top:1px solid rgba(201,164,97,0.13);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;}
+.fl{font-style:italic;font-size:0.9rem;color:var(--text-sec);line-height:1.75;}
+.fc{text-align:center;}
+.fc-wm{font-family:'Cinzel',serif;font-size:0.78rem;color:var(--gold);letter-spacing:0.22em;}
+.fc-tl{font-style:italic;font-size:0.82rem;color:var(--text-sec);margin-top:5px;}
+.fr{text-align:right;font-family:'Cinzel',serif;font-size:0.58rem;color:var(--text-sec);letter-spacing:0.1em;line-height:1.8;}
+
+/* RESPONSIVE */
+@media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr);}.featured-card{grid-template-columns:1fr;}.feat-right{height:240px;}}
+@media(max-width:600px){.grid{grid-template-columns:1fr;}.hero,.featured-wrap,.browse-wrap{padding-left:22px;padding-right:22px;}nav{padding:0 20px;}.nav-links{gap:16px;}.nav-links a:nth-child(3){display:none;}}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">METAVOXA PRESS</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">DISPATCHES</a>
+    <a href="star-of-the-month.html">STAR OF THE MONTH</a>
+    <a href="lexicon.html">THE METAVOXA LEXICON</a>
+  </div>
+  <a href="archive.html" class="nav-archive">PRESS ARCHIVE<span class="dot">●</span></a>
+</nav>
+
+<main>
+  <section class="hero">
+    <div>
+      <p class="hero-eyebrow">DISPATCHES</p>
+      <h1 class="hero-title">Dispatches</h1>
+      <p class="hero-sub"><em>Essays from the edge of systems, selfhood, medicine, and meaning.</em></p>
+    </div>
+    <div class="hero-right">LONG-FORM ESSAYS<br>FROM THE METAVOXA ARCHIVE</div>
+  </section>
+
+  <section class="featured-wrap">
+    <div class="featured-card" id="featured">
+      <!-- Paper clip SVG -->
+      <svg class="clip" width="18" height="38" viewBox="0 0 18 38">
+        <rect x="2" y="0" width="14" height="38" rx="7" ry="7" fill="none" stroke="#A09070" stroke-width="1.5"/>
+        <rect x="5" y="4" width="8" height="30" rx="4" ry="4" fill="none" stroke="#A09070" stroke-width="1.2"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="browse-wrap">
+    <div class="filter-bar">
+      <span class="browse-label">BROWSE ESSAYS</span>
+      <button class="fbtn active" data-f="ALL">ALL</button>
+      <button class="fbtn" data-f="SELFHOOD">SELFHOOD</button>
+      <button class="fbtn" data-f="SYSTEMS">SYSTEMS</button>
+      <button class="fbtn" data-f="MEDICINE">MEDICINE</button>
+      <button class="fbtn" data-f="NEURODIVERGENCE">NEURODIVERGENCE</button>
+      <button class="fbtn" data-f="RELATIONSHIPS">RELATIONSHIPS</button>
+      <button class="fbtn" data-f="INFRASTRUCTURE">INFRASTRUCTURE</button>
+      <div class="sort-wrap">
+        <select id="sortSel">
+          <option value="newest">SORT: NEWEST</option>
+          <option value="oldest">SORT: OLDEST</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="fl">WE WRITE WHAT SYSTEMS<br>WERE NOT BUILT TO HOLD.</div>
+  <div class="fc">
+    <div class="fc-wm">METAVOXA PRESS</div>
+    <div class="fc-tl">WHERE LIVED EXPERIENCE BECOMES LANGUAGE.</div>
+  </div>
+  <div class="fr">EST. 2024<br>ALL RIGHTS RESERVED</div>
+</footer>
+
+<script>
+const CAT_C={SELFHOOD:'#C9A461',SYSTEMS:'#8BA8A0',MEDICINE:'#A07878',NEURODIVERGENCE:'#8890A0',RELATIONSHIPS:'#A89070',INFRASTRUCTURE:'#90A088'};
+
+const DISPATCHES=[
+  {id:'001',title:'The Quiet Discipline of Letting People Be Wrong',category:'SELFHOOD',desc:'On interpretative sovereignty, emotional restraint, and the private discipline of not correcting every false reading of your life.',readTime:'12',date:'14 JUN 2026',tags:['SOVEREIGNTY','EMOTIONAL LABOUR'],featured:true,link:'https://substack.com/@metavoxapress'},
+  {id:'002',title:'What Happens After People Pleasing',category:'SELFHOOD',desc:'The grief, the recalibration, and the return to self.',readTime:'11',date:'10 JUN 2026',tags:['BOUNDARIES','HEALING'],link:'https://substack.com/@metavoxapress'},
+  {id:'003',title:'Interpretative Sovereignty',category:'SYSTEMS',desc:'The right to define the meaning of your own experience.',readTime:'9',date:'08 JUN 2026',tags:['SOVEREIGNTY','AUTONOMY'],link:'https://substack.com/@metavoxapress'},
+  {id:'004',title:'Functional Pain',category:'MEDICINE',desc:'Pain does not need to look like what systems expect to be real.',readTime:'14',date:'05 JUN 2026',tags:['PAIN','VALIDATION','CLINICAL BIAS'],link:'https://substack.com/@metavoxapress'},
+  {id:'005',title:'The Cost of Adaptation',category:'SYSTEMS',desc:'When survival becomes the most expensive skill.',readTime:'13',date:'01 JUN 2026',tags:['ADAPTATION','SURVIVAL'],link:'https://substack.com/@metavoxapress'},
+  {id:'006',title:'Performed Wellness',category:'SELFHOOD',desc:'The art of looking well while falling apart in private.',readTime:'10',date:'28 MAY 2026',tags:['MASKING','SURVIVAL','IDENTITY'],link:'https://substack.com/@metavoxapress'},
+  {id:'007',title:'The Archive of Being Misread',category:'SYSTEMS',desc:'On patterns of misrecognition and the cost of misinterpretation.',readTime:'12',date:'26 MAY 2026',tags:['MISREADING','SYSTEMIC BIAS'],link:'https://substack.com/@metavoxapress'},
+  {id:'008',title:'The Physiology of the Mask',category:'NEURODIVERGENCE',desc:'What the body does when the brain has to perform.',readTime:'15',date:'20 MAY 2026',tags:['MASKING','ADHD','AUTISM'],link:'https://substack.com/@metavoxapress'},
+  {id:'009',title:"What the Chart Doesn't Say",category:'MEDICINE',desc:'The gap between clinical record and clinical truth.',readTime:'11',date:'15 MAY 2026',tags:['HEALTHCARE','DOCUMENTATION'],link:'https://substack.com/@metavoxapress'},
+  {id:'010',title:'The Inherited Threshold',category:'SELFHOOD',desc:'On what we learn to tolerate before we know we are learning anything.',readTime:'13',date:'10 MAY 2026',tags:['INHERITANCE','RESILIENCE'],link:'https://substack.com/@metavoxapress'},
+  {id:'011',title:'What African Mothers Teach Daughters About Not Needing Anything',category:'RELATIONSHIPS',desc:'The inherited instruction to be fine, and its cost.',readTime:'16',date:'05 MAY 2026',tags:['CULTURE','MOTHERHOOD','INHERITANCE'],link:'https://substack.com/@metavoxapress'},
+  {id:'012',title:'The Word for What the System Cannot See',category:'INFRASTRUCTURE',desc:'On language, naming, and institutional blindness.',readTime:'10',date:'01 MAY 2026',tags:['LANGUAGE','INSTITUTIONS'],link:'https://substack.com/@metavoxapress'},
+];
+
+// ── RENDER FEATURED ──────────────────────────────────────
+function renderFeatured(){
+  const f=DISPATCHES.find(d=>d.featured);
+  if(!f)return;
+  const el=document.getElementById('featured');
+  // keep the clip SVG
+  const clip=el.querySelector('.clip');
+  el.innerHTML='';
+  el.appendChild(clip);
+  el.insertAdjacentHTML('beforeend',`
+    <div class="feat-left">
+      <p class="feat-label">FEATURED DISPATCH</p>
+      <h2 class="feat-title">${f.title}</h2>
+      <p class="feat-desc">${f.desc}</p>
+      <p class="feat-meta">DISPATCH ${f.id} &nbsp;·&nbsp; ${f.readTime} MIN READ &nbsp;·&nbsp; ${f.date}</p>
+      <a href="${f.link}" class="feat-link" target="_blank" rel="noopener">READ DISPATCH →</a>
+    </div>
+    <div class="feat-right">
+      <img src="featured-dispatch.jpg" alt="Featured Dispatch"
+        onerror="this.outerHTML='<div class=\\'feat-right-empty\\'><span>FEATURED IMAGE</span></div>'">
+    </div>
+  `);
+}
+
+// ── RENDER GRID ───────────────────────────────────────────
+function renderGrid(filter='ALL'){
+  const list=DISPATCHES.filter(d=>!d.featured&&(filter==='ALL'||d.category===filter));
+  document.getElementById('grid').innerHTML=list.map(d=>`
+    <a href="${d.link}" target="_blank" rel="noopener" class="card" data-cat="${d.category}">
+      <div class="card-hd">
+        <span class="c-num">DISPATCH ${d.id}</span>
+        <span style="color:#8A7A5A">·</span>
+        <span class="c-cat" style="color:${CAT_C[d.category]}">${d.category}</span>
+      </div>
+      <h3 class="c-title">${d.title}</h3>
+      <p class="c-desc">${d.desc}</p>
+      <p class="c-meta">${d.readTime} MIN READ &nbsp;·&nbsp; ${d.date}</p>
+      <div class="tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+    </a>
+  `).join('');
+}
+
+// ── FILTERS ───────────────────────────────────────────────
+let activeFilter='ALL';
+document.querySelectorAll('.fbtn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter=btn.dataset.f;
+    renderGrid(activeFilter);
+  });
+});
+
+// ── INIT ─────────────────────────────────────────────────
+renderFeatured();
+renderGrid();
+</script>
+</body>
+</html>
